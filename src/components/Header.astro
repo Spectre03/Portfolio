@@ -1,0 +1,50 @@
+---
+import { siteConfig } from "../config";
+
+const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
+const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
+const hasEducation = siteConfig.education && siteConfig.education.length > 0;
+---
+
+<header id="header" class="fixed inset-x-0 top-6 z-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <nav class="flex items-center justify-between glass rounded-full py-2 px-4 md:px-6">
+      <div class="flex items-center gap-4">
+        <a href="#hero" class="text-lg font-semibold text-white hover:text-[var(--color-accent)] transition-colors">{siteConfig.name}</a>
+      </div>
+
+      <ul class="hidden md:flex items-center gap-6">
+        <li><a href="#about" class="text-white hover:text-[var(--color-accent)] hover-glow transition-colors">About</a></li>
+        {hasProjects && <li><a href="#projects" class="text-white hover:text-[var(--color-accent)] hover-glow transition-colors">Projects</a></li>}
+        {hasExperience && <li><a href="#experience" class="text-white hover:text-[var(--color-accent)] hover-glow transition-colors">Experience</a></li>}
+        {hasEducation && <li><a href="#education" class="text-white hover:text-[var(--color-accent)] hover-glow transition-colors">Education</a></li>}
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-medium text-[var(--color-accent)] hover:text-[var(--color-primary)] transition-colors">Software Engineer</span>
+      </div>
+    </nav>
+  </div>
+
+  <style>
+    /* subtle transition when scrolled */
+    #header { transition: background-color .18s ease, backdrop-filter .18s ease; }
+    #header.scrolled { background-color: rgba(15, 15, 30, 0.35); }
+  </style>
+
+  <script>
+    (function () {
+      const headerEl = document.getElementById('header');
+      if (!headerEl) return;
+      const onScroll = () => {
+        if (window.scrollY > 40) {
+          headerEl.classList.add('backdrop-blur-sm', 'scrolled');
+        } else {
+          headerEl.classList.remove('backdrop-blur-sm', 'scrolled');
+        }
+      };
+      window.addEventListener('scroll', onScroll);
+      onScroll();
+    })();
+  </script>
+</header>
