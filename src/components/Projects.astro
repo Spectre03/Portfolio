@@ -1,0 +1,132 @@
+---
+import { siteConfig } from "../config";
+const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
+---
+
+{
+  hasProjects && (
+    <section id="projects" class="p-8 sm:p-12 md:p-16 lg:p-24">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          <div class="lg:col-span-4 scroll-slide-left">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-[var(--color-text)]">
+              Projects
+            </h2>
+            <div class="w-[75px] h-[5px] mt-2 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]"></div>
+          </div>
+
+          <div class="lg:col-span-8">
+            <div class="space-y-10 md:space-y-12 scroll-stagger">
+              {siteConfig.projects.map((project, index) => {
+                const Component = project.link ? "a" : "div";
+                const linkProps = project.link
+                  ? {
+                      href: project.link,
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    }
+                  : {};
+
+                return (
+                  <div class="project-card group relative isolate">
+                    {project.link ? (
+                      <div
+                        class="block relative p-6 sm:p-8 md:p-10 bg-[var(--glass-bg)] rounded-xl sm:rounded-2xl border border-[var(--color-border)] transition-all duration-300 hover:bg-[rgba(0,217,255,0.08)] hover:shadow-[0_0_40px_rgba(0,217,255,0.25)] hover:border-[var(--color-primary)] hover:-translate-y-1"
+                      >
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="absolute top-6 right-6 sm:top-8 sm:right-8 md:top-10 md:right-10 w-11 h-11 sm:w-12 sm:h-12 md:w-14 md:h-14 flex items-center justify-center bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] rounded-lg text-[var(--color-bg)] transition-all duration-300 group-hover:shadow-[0_0_25px_rgba(0,217,255,0.6)] group-hover:scale-110 z-20"
+                          aria-label="Open project"
+                        >
+                          <svg
+                            class="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2.5"
+                              d="M7 17L17 7M17 7H7M17 7V17"
+                            />
+                          </svg>
+                        </a>
+
+                        <div class="space-y-4 pr-16 sm:pr-20 md:pr-24">
+                          <div>
+                            <span class="text-sm font-mono text-[var(--color-primary)] opacity-70">
+                              0{index + 1}
+                            </span>
+                            <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)] mt-2 group-hover:text-[var(--color-primary)] transition-colors duration-300">
+                              {project.name}
+                            </h3>
+                          </div>
+
+                          <p class="text-base sm:text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+                            {project.description}
+                          </p>
+
+                          {project.skills && project.skills.length > 0 && (
+                            <div class="flex flex-wrap gap-2 pt-3">
+                              {project.skills.map((skill) => (
+                                <span class="px-3 py-1.5 bg-gradient-to-r from-[var(--color-primary)]/15 to-[var(--color-accent)]/15 text-[var(--color-primary)] rounded-lg text-xs sm:text-sm font-medium border border-[var(--color-primary)]/30 transition-all duration-300 group-hover:border-[var(--color-primary)] group-hover:shadow-[0_0_12px_rgba(0,217,255,0.2)]">
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        class="block relative p-6 sm:p-8 md:p-10 bg-[var(--glass-bg)] rounded-xl sm:rounded-2xl border border-[var(--color-border)]"
+                      >
+                        <div class="space-y-4">
+                          <div>
+                            <span class="text-sm font-mono text-[var(--color-primary)] opacity-70">
+                              0{index + 1}
+                            </span>
+                            <h3 class="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-text)] mt-2">
+                              {project.name}
+                            </h3>
+                          </div>
+
+                          <p class="text-base sm:text-lg md:text-xl text-[var(--color-text-muted)] leading-relaxed">
+                            {project.description}
+                          </p>
+
+                          {project.skills && project.skills.length > 0 && (
+                            <div class="flex flex-wrap gap-2 pt-3">
+                              {project.skills.map((skill) => (
+                                <span class="px-3 py-1.5 bg-gradient-to-r from-[var(--color-primary)]/15 to-[var(--color-accent)]/15 text-[var(--color-primary)] rounded-lg text-xs sm:text-sm font-medium border border-[var(--color-primary)]/30">
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .project-card {
+    isolation: isolate;
+  }
+
+  .project-card:hover {
+    z-index: 10;
+  }
+</style>

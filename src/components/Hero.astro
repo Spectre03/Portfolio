@@ -1,0 +1,152 @@
+---
+import { siteConfig } from "../config";
+---
+
+<section id="hero" class="relative isolate overflow-hidden bg-[var(--color-bg)] py-20 md:py-32">
+  <!-- Decorative concentric circles with parallax scroll effect -->
+  <div class="absolute inset-0 -z-10 pointer-events-none">
+    <div id="circle-container" class="absolute lg:right-16 lg:top-12 right-8 top-20 flex items-center justify-center" data-parallax="0.5">
+      <div class="relative w-56 h-56 md:w-64 md:h-64 lg:w-72 lg:h-72">
+        <!-- Outer rotating circle -->
+        <div class="absolute inset-0 rounded-full border-2 border-[var(--color-accent)] opacity-12 animate-circle-rotate"></div>
+        <!-- Middle rotating circle (counter-direction) -->
+        <div class="absolute inset-6 rounded-full border border-[var(--color-primary)] opacity-10 animate-circle-rotate-reverse" style="animation-delay: 0.5s;"></div>
+        <!-- Inner pulsing circle -->
+        <div class="absolute inset-12 rounded-full border border-[var(--color-border)] opacity-08 animate-circle-pulse"></div>
+        <!-- Gradient fill -->
+        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] opacity-04"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 sm:px-12 md:px-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <!-- Left: text -->
+      <div class="lg:col-span-7 text-center lg:text-left">
+        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full glass anim-fadeup" style="animation-delay:.05s">
+          <span class="text-2xl">👋</span>
+          <span class="text-sm font-medium text-[var(--color-text-muted)]">Welcome — I build apps that scale</span>
+        </div>
+
+        <h1 class="mt-6 text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-[var(--color-text)] anim-drop" style="animation-delay:.15s">
+          {siteConfig.name}
+        </h1>
+
+        <div class="mt-2">
+          <div class="text-sm text-[var(--color-text-muted)]">Software Engineer</div>
+          <div class="text-2xl sm:text-3xl font-semibold text-[var(--color-accent)]">{siteConfig.title}</div>
+        </div>
+
+        <p class="mt-6 max-w-3xl text-[var(--color-text-muted)] text-lg sm:text-xl anim-fadeup" style="animation-delay:.25s">
+          {siteConfig.description}
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row sm:items-center gap-4 anim-fadeup" style="animation-delay:.35s">
+          <div class="flex items-center gap-4">
+            <a href="#projects" aria-label="View my work" class="inline-flex items-center px-8 py-3 rounded-lg border-2 border-[var(--color-accent)] text-[var(--color-accent)] font-semibold hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] transition duration-300 uppercase text-sm tracking-wide">
+              View My Work
+            </a>
+            <a href="#about" aria-label="Learn more about me" class="inline-flex items-center px-8 py-3 rounded-lg border-2 border-[var(--color-accent)] text-[var(--color-accent)] font-semibold hover:bg-[var(--color-accent)] hover:text-[var(--color-bg)] transition duration-300 uppercase text-sm tracking-wide">
+              Learn More
+            </a>
+          </div>
+
+          <div class="mt-3 sm:mt-0 flex items-center gap-3">
+            {siteConfig.social?.email && (
+              <a href={`mailto:${siteConfig.social.email}`} aria-label="Email" class="p-2.5 rounded-lg bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"></path>
+                  <path d="M3 7l9 6l9 -6"></path>
+                </svg>
+              </a>
+            )}
+
+            {siteConfig.social?.linkedin && (
+              <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="p-2.5 rounded-lg bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M8 11v5"></path>
+                  <path d="M8 8v.01"></path>
+                  <path d="M12 16v-5"></path>
+                  <path d="M16 16v-3a2 2 0 1 0 -4 0"></path>
+                  <path d="M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z"></path>
+                </svg>
+              </a>
+            )}
+
+            {siteConfig.social?.github && (
+              <a href={siteConfig.social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="p-2.5 rounded-lg bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"></path>
+                </svg>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: avatar with subtle circles behind -->
+      <div class="lg:col-span-5 flex items-center justify-center">
+        <div class="relative flex items-center justify-center">
+          <div class="absolute -z-10 w-56 h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full"></div>
+          <div class="relative w-44 h-44 md:w-52 md:h-52 lg:w-56 lg:h-56 rounded-full overflow-hidden border border-[var(--color-border)] bg-[var(--color-bg)]">
+            <img src="/obaid.jpeg" alt="Obaidullah Arshad" class="w-full h-full object-cover rounded-full" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .anim-drop { animation: dropIn .8s cubic-bezier(.2,.9,.3,1) both; }
+    .anim-fadeup { animation: fadeUp .8s cubic-bezier(.2,.9,.3,1) both; }
+    .hover-glow:hover { box-shadow: 0 12px 40px rgba(124,58,237,0.12); }
+    html { scroll-behavior: smooth; }
+
+    /* enhanced concentric circle animations */
+    @keyframes circle-rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes circle-rotate-reverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    @keyframes circle-pulse {
+      0% { transform: scale(1); opacity: 0.08; }
+      50% { transform: scale(1.08); opacity: 0.16; }
+      100% { transform: scale(1); opacity: 0.08; }
+    }
+
+    @keyframes float-scroll {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(20px); }
+    }
+
+    .animate-circle-rotate { animation: circle-rotate 24s linear infinite; }
+    .animate-circle-rotate-reverse { animation: circle-rotate-reverse 16s linear infinite; }
+    .animate-circle-pulse { animation: circle-pulse 4s ease-in-out infinite; }
+    .animate-float-scroll { animation: float-scroll 0.8s ease-out forwards; }
+  </style>
+
+  <script>
+    (function () {
+      const container = document.getElementById('circle-container');
+      if (!container) return;
+
+      const attr = container.getAttribute('data-parallax');
+      const parallaxFactor = attr ? parseFloat(attr) : 0.5;
+
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const offset = scrollY * parallaxFactor;
+        container.style.transform = `translateY(${offset}px)`;
+      });
+    })();
+  </script>
+</section>
+          </div>

@@ -1,0 +1,431 @@
+@import "tailwindcss";
+
+:root {
+  /* Liquid theme: purple primary, cyan accent */
+  --color-bg: #070921;
+  /* deep midnight */
+  --color-surface: #0d1226;
+  --color-primary: #7c3aed;
+  /* purple */
+  --color-accent: #06b6d4;
+  /* cyan */
+  --color-text: #e6eef9;
+  --color-text-muted: #98a0b4;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --glass-bg: rgba(11, 16, 34, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --shadow-soft: 0 10px 30px rgba(3, 7, 18, 0.6);
+  --glow: 0 10px 40px rgba(124, 58, 237, 0.12);
+
+  /* Shadcn Variables (Adapted) */
+  --background: 235 46% 8%;
+  --foreground: 210 40% 98%;
+  --card: 235 46% 8%;
+  --card-foreground: 210 40% 98%;
+  --popover: 235 46% 8%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 263 83% 58%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 263 83% 58%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 235 46% 8%;
+  --foreground: 210 40% 98%;
+  --card: 235 46% 8%;
+  --card-foreground: 210 40% 98%;
+  --popover: 235 46% 8%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 263 83% 58%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 263 83% 58%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-bg);
+}
+
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'IBM Plex Mono', sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle animated radial accents behind the site with mouse tracking */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(600px 600px at 10% 80%, rgba(124, 58, 237, 0.12), transparent 25%),
+    radial-gradient(500px 500px at 85% 20%, rgba(6, 182, 212, 0.10), transparent 25%);
+  pointer-events: none;
+  z-index: -2;
+  /* push the body accent behind the glow layers */
+  transition: background 0.1s ease-out;
+}
+
+/* Dynamic mouse-tracking glow layer */
+#mouse-glow {
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(6, 182, 212, 0.32) 0%, rgba(124, 58, 237, 0.18) 35%, transparent 70%);
+  filter: blur(90px);
+  z-index: 20;
+  /* above background accents and visible under header (header is z-50) */
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  will-change: left, top;
+}
+
+#mouse-glow.active {
+  opacity: 1;
+}
+
+/* Scroll glow effect - accent color follows scroll position */
+#scroll-glow {
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse 900px 500px at 50% 0%, rgba(6, 182, 212, 0.12), transparent 65%);
+  z-index: 5;
+  /* above backgrounds, below mouse glow and header */
+  opacity: 0.12;
+  /* make top glow more visible on load */
+  transition: background-position 0.5s ease-out, opacity 0.5s ease-out;
+  will-change: background-position, opacity;
+}
+
+#scroll-glow.active {
+  opacity: 1;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+/* Scrollbar with progress indicator */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.4);
+}
+
+/* Scroll progress bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #7c3aed, #06b6d4);
+  z-index: 100;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.6);
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.02em;
+}
+
+/* Links and buttons */
+a {
+  color: var(--color-accent);
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+/* Reusable glass class */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+}
+
+/* Utility subtle animations */
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-36px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatBlob {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1)
+  }
+
+  33% {
+    transform: translate(20px, -30px) scale(1.05)
+  }
+
+  66% {
+    transform: translate(-18px, 18px) scale(.95)
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.anim-drop {
+  animation: dropIn .7s cubic-bezier(.2, .9, .3, 1) both;
+}
+
+.anim-fadeup {
+  animation: fadeUp .7s cubic-bezier(.2, .9, .3, 1) both;
+}
+
+.anim-blob {
+  animation: floatBlob 8s infinite;
+}
+
+/* Scroll-triggered animations with strong visibility */
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.scroll-fade.visible {
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+.scroll-slide-left {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.scroll-slide-left.visible {
+  animation: slideInLeft 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+.scroll-slide-right {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.scroll-slide-right.visible {
+  animation: slideInRight 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+.scroll-scale {
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+.scroll-scale.visible {
+  animation: scaleIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Staggered animations */
+.scroll-stagger {
+  --stagger-delay: 0s;
+}
+
+.scroll-stagger>* {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.scroll-stagger.visible>* {
+  animation: fadeUp 0.7s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+.scroll-stagger.visible> :nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.scroll-stagger.visible> :nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.scroll-stagger.visible> :nth-child(3) {
+  animation-delay: 0.25s;
+}
+
+.scroll-stagger.visible> :nth-child(4) {
+  animation-delay: 0.35s;
+}
+
+.scroll-stagger.visible> :nth-child(5) {
+  animation-delay: 0.45s;
+}
+
+.scroll-stagger.visible> :nth-child(6) {
+  animation-delay: 0.55s;
+}
+
+.scroll-stagger.visible> :nth-child(n+7) {
+  animation-delay: 0.65s;
+}
+
+/* Small helpers */
+.hover-glow:hover {
+  box-shadow: var(--glow);
+}
+
+/* Spotlight Animation */
+@keyframes spotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.5);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
+}
+
+.animate-spotlight {
+  animation: spotlight 2s ease .75s 1 forwards;
+}
+
+/* Floating Animation */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Gentle Pulse */
+@keyframes gentle-pulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 4s ease-in-out infinite;
+}

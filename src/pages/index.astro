@@ -1,0 +1,168 @@
+---
+import Header from "../components/Header.astro";
+import HeroNew from "../components/HeroNew.astro";
+import About from "../components/About.astro";
+import Projects from "../components/Projects.astro";
+import Experience from "../components/Experience.astro";
+import Education from "../components/Education.astro";
+import Certifications from "../components/Certifications.astro";
+import { InteractiveShowcase } from "../components/InteractiveShowcase";
+import MyApproach from "../components/MyApproach.astro";
+import Footer from "../components/Footer.astro";
+import { siteConfig } from "../config";
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={siteConfig.description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{siteConfig.name} - {siteConfig.title}</title>
+  </head>
+  <body>
+    <!-- Dynamic mouse-tracking glow -->
+    <div id="mouse-glow"></div>
+
+    <!-- Scroll-triggered glow effect -->
+    <div id="scroll-glow"></div>
+
+    <!-- Scroll progress bar -->
+    <div id="scroll-progress"></div>
+
+    <Header />
+    <section>
+      <HeroNew />
+      <About />
+      <Projects />
+      <Experience />
+      <Education />
+      <Certifications />
+      <MyApproach />
+      <InteractiveShowcase client:visible />
+    </section>
+    <Footer />
+
+    <script>
+      // ===== SCROLL PROGRESS BAR =====
+      (function () {
+        const progressBar = document.getElementById('scroll-progress');
+        if (!progressBar) return;
+
+        const updateProgress = () => {
+          const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const scrolled = (window.scrollY / windowHeight) * 100;
+          progressBar.style.width = scrolled + '%';
+        };
+
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        updateProgress();
+      })();
+
+      // ===== MOUSE TRACKING GLOW =====
+      (function () {
+        const mouseGlow = document.getElementById('mouse-glow');
+        if (!mouseGlow) return;
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let isMouseMoving = false;
+        const timeouts: Record<string, ReturnType<typeof setTimeout> | null> = { mouse: null };
+
+        window.addEventListener('mousemove', (e: MouseEvent) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          // Position glow at mouse cursor (centered on cursor, accounting for glow size)
+          mouseGlow.style.left = (mouseX - 200) + 'px';
+          mouseGlow.style.top = (mouseY - 200) + 'px';
+
+          if (!isMouseMoving) {
+            isMouseMoving = true;
+            mouseGlow.classList.add('active');
+          }
+
+          if (timeouts.mouse) clearTimeout(timeouts.mouse);
+          timeouts.mouse = setTimeout(() => {
+            isMouseMoving = false;
+            mouseGlow.classList.remove('active');
+          }, 2500); // Glow fades 2.5s after mouse stops
+        }, { passive: true });
+
+        // Hide glow when mouse leaves window
+        document.addEventListener('mouseleave', () => {
+          mouseGlow.classList.remove('active');
+        }, { passive: true });
+      })();
+
+      // ===== SCROLL GLOW EFFECT WITH DYNAMIC POSITIONING =====
+      (function () {
+        const scrollGlow = document.getElementById('scroll-glow');
+        if (!scrollGlow) return;
+
+        // compute and apply glow state (call on load and on scroll)
+        const updateGlow = () => {
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const scrollPercent = docHeight > 0 ? window.scrollY / docHeight : 0;
+          const scrollPosition = window.scrollY;
+
+          // opacity ramps from 0.06 -> 0.5 based on scroll percentage
+          const min = 0.06;
+          const max = 0.5;
+          const opacity = Math.min(max, min + scrollPercent * (max - min) * 1.6);
+          scrollGlow.style.opacity = String(opacity.toFixed(3));
+
+          // Move glow position subtly with scroll for depth (parallax)
+          scrollGlow.style.backgroundPosition = `50% ${Math.min(60, scrollPercent * 120)}%`;
+          scrollGlow.style.top = (scrollPosition * 0.35) + 'px';
+        };
+
+        // initialize now
+        scrollGlow.classList.add('active');
+        updateGlow();
+
+        window.addEventListener('scroll', updateGlow, { passive: true });
+        window.addEventListener('resize', updateGlow);
+      })();
+
+      // ===== INTERSECTION OBSERVER FOR SCROLL ANIMATIONS =====
+      (function () {
+        const observerOptions = {
+          threshold: [0, 0.1, 0.2],
+          rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Add visible class to trigger animation
+              entry.target.classList.add('visible');
+              // Optional: unobserve after animation to save performance
+              // observer.unobserve(entry.target);
+            } else {
+              // Remove class when out of view (for re-triggering on scroll back)
+              entry.target.classList.remove('visible');
+            }
+          });
+        }, observerOptions);
+
+        // Observe all animated elements
+        const animatedElements = document.querySelectorAll(
+          '.scroll-fade, .scroll-slide-left, .scroll-slide-right, .scroll-scale, .scroll-stagger'
+        );
+        
+        animatedElements.forEach((el) => {
+          observer.observe(el);
+        });
+      })();
+    </script>
+  </body>
+</html>

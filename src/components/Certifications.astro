@@ -1,0 +1,113 @@
+---
+import { siteConfig } from "../config";
+
+// Updated sample certifications – you can edit these in config later
+const certifications = [
+  {
+    name: "AWS Certified Solutions Architect",
+    issuer: "Amazon Web Services",
+    date: "2024",
+    credentialId: "ABC123XYZ",
+    icon: "☁️"
+  },
+  {
+    name: "IBM Full Stack Cloud Developer",
+    issuer: "IBM",
+    date: "2023",
+    credentialId: "IBM456DEF",
+    icon: "💻"
+  },
+  {
+    name: "Cisco Certified Network Associate (CCNA)",
+    issuer: "Cisco",
+    date: "2022",
+    credentialId: "CISCO789GHI",
+    icon: "📡"
+  },
+  {
+    name: "React Advanced Certification",
+    issuer: "Meta",
+    date: "2023",
+    credentialId: "META012JKL",
+    icon: "⚛️"
+  },
+  {
+    name: "Microsoft Azure Developer Associate",
+    issuer: "Microsoft",
+    date: "2023",
+    credentialId: "AZURE345MNO",
+    icon: "🟦"
+  },
+  {
+    name: "Scrum Master Certified",
+    issuer: "Scrum Alliance",
+    date: "2022",
+    credentialId: "SCRUM678PQR",
+    icon: "📈"
+  },
+];
+---
+
+<section id="certifications" class="p-8 sm:p-12 md:p-16 lg:p-24">
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16 scroll-fade">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+        <span class="text-2xl">🏆</span>
+        <span class="text-sm font-medium text-[var(--color-text-muted)]">Achievements</span>
+      </div>
+      <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">Certifications</span>
+      </h2>
+      <p class="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
+        Professional certifications and achievements that validate my expertise
+      </p>
+    </div>
+
+    <!-- Certifications Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {certifications.map((cert, index) => (
+        <div 
+          class="group relative bg-[var(--glass-bg)] rounded-2xl border border-[var(--color-border)] p-6 sm:p-8 hover:border-[var(--color-primary)] transition-all duration-500 hover:shadow-[0_0_30px_rgba(124,58,237,0.2)] hover:-translate-y-2 scroll-fade"
+          style={`animation-delay: ${index * 0.1}s`}
+        >
+          <!-- Icon Badge -->
+          <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-500 shadow-lg">
+            {cert.icon}
+          </div>
+
+          <!-- Certification Name -->
+          <h3 class="text-xl sm:text-2xl font-bold text-[var(--color-text)] mb-3 group-hover:text-[var(--color-accent)] transition-colors duration-300">
+            {cert.name}
+          </h3>
+
+          <!-- Issuer -->
+          <p class="text-[var(--color-primary)] font-semibold mb-2">
+            {cert.issuer}
+          </p>
+
+          <!-- Date & Credential -->
+          <div class="flex items-center justify-between text-sm text-[var(--color-text-muted)] mb-4">
+            <span class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              {cert.date}
+            </span>
+          </div>
+
+          <!-- Credential ID -->
+          <div class="text-xs text-[var(--color-text-muted)] font-mono opacity-60 group-hover:opacity-100 transition-opacity">
+            ID: {cert.credentialId}
+          </div>
+
+          <!-- Decorative Corner -->
+          <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[var(--color-primary)]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

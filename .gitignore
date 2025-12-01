@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production
+dist/
+build/
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# Astro
+.astro/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# Old folders
+devportfolio-master/
+
+# Documentation (keep only README.md)
+ANIMATION_SUGGESTIONS.md
+CHANGELOG.md
+CLAUDE.md
+DEPLOYMENT_GUIDE.md
+ENHANCEMENT_GUIDE.md
+FINAL_SUMMARY.md
+IMPLEMENTATION_SUMMARY.md
+QUICK_START.md
+UPDATE_SUMMARY.md
+
+# Images in root (should be in public/)
+Obaid.jpeg

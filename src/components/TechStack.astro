@@ -1,0 +1,111 @@
+---
+import { siteConfig } from "../config";
+
+// Professional tech stack with SVG icons and brand colors
+const techStack = [
+  {
+    name: "React",
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2"/><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z"/></svg>`,
+    color: "#61DAFB",
+  },
+  {
+    name: "Next.js",
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7v10l10 5 10-5V7L12 2z"/></svg>`,
+    color: "#000000",
+  },
+  {
+    name: "TypeScript",
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="2"/><text x="12" y="16" text-anchor="middle" fill="white" font-size="12" font-weight="bold">TS</text></svg>`,
+    color: "#3178C6",
+  },
+  {
+    name: "Node.js",
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 18l-8-4V8l8-4 8 4v8l-8 4z"/></svg>`,
+    color: "#339933",
+  },
+  {
+    name: "Python",
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>`,
+    color: "#3776AB",
+  },
+  {
+    name: "Docker",
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="8" width="4" height="4"/><rect x="8" y="8" width="4" height="4"/><rect x="13" y="8" width="4" height="4"/><rect x="8" y="3" width="4" height="4"/></svg>`,
+    color: "#2496ED",
+  },
+  {
+    name: "AWS",
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 8l6-4 6 4v8l-6 4-6-4V8z"/></svg>`,
+    color: "#FF9900",
+  },
+  {
+    name: "MongoDB",
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-.53-.21-1-.48-1.41-.82-.39-.34-.72-.75-.97-1.2-.25-.45-.42-.95-.51-1.47h2.89v3.49zm2 0v-3.49h2.89c-.09.52-.26 1.02-.51 1.47-.25.45-.58.86-.97 1.2-.41.34-.88.61-1.41.82z"/></svg>`,
+    color: "#47A248",
+  },
+];
+---
+
+<div class="mt-16 sm:mt-20">
+  <!-- Section Title -->
+  <div class="text-center mb-12">
+    <h3 class="text-2xl sm:text-3xl font-bold text-[var(--color-text)] mb-3">
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">Tech Stack</span>
+    </h3>
+    <p class="text-[var(--color-text-muted)] text-sm sm:text-base">Technologies I work with</p>
+  </div>
+
+  <!-- Icons Grid -->
+  <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 md:gap-12">
+    {techStack.map((tech) => (
+      <div class="group relative flex flex-col items-center justify-center transition-all duration-500 hover:-translate-y-2 cursor-pointer" data-tech-color={tech.color}>
+        <!-- Icon container -->
+        <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center rounded-2xl bg-[var(--glass-bg)] border border-[var(--color-border)] group-hover:border-[var(--color-primary)] transition-all duration-500 group-hover:shadow-lg overflow-hidden">
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 tech-gradient"></div>
+          <div class="relative z-10 w-8 h-8 sm:w-10 sm:h-10" style={`color: ${tech.color}`} set:html={tech.icon}></div>
+        </div>
+        <!-- Name -->
+        <div class="mt-3 text-sm font-bold text-[var(--color-text-muted)] group-hover:text-[var(--color-text)] transition-colors duration-500 opacity-0 group-hover:opacity-100">
+          {tech.name}
+        </div>
+        <!-- Glow effect -->
+        <div class="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 tech-glow blur-xl -z-10"></div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  /* Hover colour handling */
+  [data-tech-color="#61DAFB"]:hover .tech-gradient { background: linear-gradient(135deg, rgba(97,218,251,0.1), rgba(97,218,251,0.05)); }
+  [data-tech-color="#61DAFB"]:hover .tech-glow { background: rgba(97,218,251,0.3); }
+  [data-tech-color="#61DAFB"]:hover svg { color: #61DAFB; }
+
+  [data-tech-color="#000000"]:hover .tech-gradient { background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(124,58,237,0.05)); }
+  [data-tech-color="#000000"]:hover .tech-glow { background: rgba(124,58,237,0.3); }
+  [data-tech-color="#000000"]:hover svg { color: var(--color-primary); }
+
+  [data-tech-color="#3178C6"]:hover .tech-gradient { background: linear-gradient(135deg, rgba(49,120,198,0.1), rgba(49,120,198,0.05)); }
+  [data-tech-color="#3178C6"]:hover .tech-glow { background: rgba(49,120,198,0.3); }
+  [data-tech-color="#3178C6"]:hover svg { color: #3178C6; }
+
+  [data-tech-color="#339933"]:hover .tech-gradient { background: linear-gradient(135deg, rgba(51,153,51,0.1), rgba(51,153,51,0.05)); }
+  [data-tech-color="#339933"]:hover .tech-glow { background: rgba(51,153,51,0.3); }
+  [data-tech-color="#339933"]:hover svg { color: #339933; }
+
+  [data-tech-color="#3776AB"]:hover .tech-gradient { background: linear-gradient(135deg, rgba(55,118,171,0.1), rgba(55,118,171,0.05)); }
+  [data-tech-color="#3776AB"]:hover .tech-glow { background: rgba(55,118,171,0.3); }
+  [data-tech-color="#3776AB"]:hover svg { color: #3776AB; }
+
+  [data-tech-color="#2496ED"]:hover .tech-gradient { background: linear-gradient(135deg, rgba(36,150,237,0.1), rgba(36,150,237,0.05)); }
+  [data-tech-color="#2496ED"]:hover .tech-glow { background: rgba(36,150,237,0.3); }
+  [data-tech-color="#2496ED"]:hover svg { color: #2496ED; }
+
+  [data-tech-color="#FF9900"]:hover .tech-gradient { background: linear-gradient(135deg, rgba(255,153,0,0.1), rgba(255,153,0,0.05)); }
+  [data-tech-color="#FF9900"]:hover .tech-glow { background: rgba(255,153,0,0.3); }
+  [data-tech-color="#FF9900"]:hover svg { color: #FF9900; }
+
+  [data-tech-color="#47A248"]:hover .tech-gradient { background: linear-gradient(135deg, rgba(71,162,72,0.1), rgba(71,162,72,0.05)); }
+  [data-tech-color="#47A248"]:hover .tech-glow { background: rgba(71,162,72,0.3); }
+  [data-tech-color="#47A248"]:hover svg { color: #47A248; }
+</style>
