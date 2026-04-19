@@ -1,0 +1,310 @@
+---
+import { siteConfig } from "../config";
+---
+
+<section id="contact" class="relative py-28 sm:py-36 lg:py-44 overflow-hidden">
+
+  <!-- Animated background orbs -->
+  <div class="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
+    <div class="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-[var(--color-primary)] opacity-[0.09] blur-[130px] rounded-full anim-blob-1"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[var(--color-accent)] opacity-[0.07] blur-[110px] rounded-full anim-blob-2"></div>
+    <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/40 to-transparent"></div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-6 sm:px-12">
+
+    <!-- Header — center -->
+    <div class="text-center mb-14">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/30 bg-green-500/10 mb-8 scroll-fade">
+        <span class="relative flex h-2 w-2 flex-shrink-0">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+        </span>
+        <span class="text-xs font-semibold text-green-400 tracking-wide">{siteConfig.availability}</span>
+      </div>
+
+      <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-[var(--color-text)] leading-[1.0] tracking-tight mb-5 scroll-fade">
+        Let's build<br />
+        <span class="gradient-text-animated">something real.</span>
+      </h2>
+      <p class="text-lg text-[var(--color-text-muted)] max-w-md mx-auto scroll-fade">
+        Tell me what you're building. I'll get back to you fast.
+      </p>
+    </div>
+
+    <!-- Two columns: form + info -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-start">
+
+      <!-- ── Contact form ── -->
+      <div class="lg:col-span-3 scroll-slide-left">
+        <form
+          id="contact-form"
+          class="space-y-4"
+          data-web3key="d799017e-32c2-4056-8b1d-faf22834f898"
+        >
+          <!-- Hidden fields for Web3Forms -->
+          <input type="hidden" name="access_key" id="access-key-field" value="" />
+          <input type="hidden" name="subject" value="New message from portfolio" />
+          <input type="hidden" name="from_name" value="Portfolio Contact" />
+          <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+
+          <!-- Name + Email row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-2">
+                Your Name <span class="text-red-400">*</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                required
+                placeholder="Your name"
+                class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)]/40 text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)] transition-all duration-200"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-2">
+                Your Email <span class="text-red-400">*</span>
+              </label>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="you@company.com"
+                class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)]/40 text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)] transition-all duration-200"
+              />
+            </div>
+          </div>
+
+          <!-- Project type -->
+          <div>
+            <label class="block text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-2">
+              What do you need?
+            </label>
+            <select
+              name="project_type"
+              class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)] transition-all duration-200 appearance-none cursor-pointer"
+            >
+              <option value="" class="bg-[#0d1226]">Select a project type...</option>
+              <option value="Shopify Hydrogen Storefront" class="bg-[#0d1226]">Shopify Hydrogen Storefront</option>
+              <option value="Full-Stack Web App" class="bg-[#0d1226]">Full-Stack Web App</option>
+              <option value="Mobile App (Flutter)" class="bg-[#0d1226]">Mobile App (Flutter)</option>
+              <option value="API / Backend" class="bg-[#0d1226]">API / Backend</option>
+              <option value="Other" class="bg-[#0d1226]">Other / Let's talk</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label class="block text-xs font-bold text-[var(--color-text-muted)] uppercase tracking-wider mb-2">
+              Message <span class="text-red-400">*</span>
+            </label>
+            <textarea
+              name="message"
+              required
+              rows="5"
+              placeholder="Tell me about your project, what it does, where you're at, and what you need..."
+              class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)]/40 text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)] transition-all duration-200 resize-none leading-relaxed"
+            ></textarea>
+          </div>
+
+          <!-- Submit button -->
+          <button
+            type="submit"
+            id="submit-btn"
+            class="w-full flex items-center justify-center gap-2.5 px-8 py-4 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-white font-bold rounded-xl hover:shadow-[0_0_40px_rgba(124,58,237,0.45)] hover:-translate-y-0.5 transition-all duration-300 text-base disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+          >
+            <span id="btn-text">Send Message</span>
+            <!-- Arrow icon -->
+            <svg id="btn-arrow" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+            <!-- Spinner -->
+            <svg id="btn-spinner" class="hidden animate-spin" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+            </svg>
+          </button>
+
+          <!-- Success message -->
+          <div id="form-success" class="hidden flex items-center gap-3 px-5 py-4 rounded-xl bg-green-500/10 border border-green-500/30 text-green-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+            <span class="text-sm font-semibold">Message sent! I'll get back to you soon.</span>
+          </div>
+
+          <!-- Error message -->
+          <div id="form-error" class="hidden flex items-center gap-3 px-5 py-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" class="flex-shrink-0"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <span class="text-sm font-semibold">Something went wrong. Try emailing me directly.</span>
+          </div>
+        </form>
+      </div>
+
+      <!-- ── Right info card ── -->
+      <div class="lg:col-span-2 scroll-slide-right">
+        <div class="relative rounded-2xl bg-[var(--glass-bg)] border border-[var(--color-border)] p-7 overflow-hidden">
+          <div class="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[var(--color-primary)]/50 to-transparent"></div>
+
+          <!-- Profile -->
+          <div class="flex items-center gap-3 mb-6">
+            <img src="/obaid.jpeg" alt="Obaidullah Arshad" class="w-12 h-12 rounded-xl object-cover border-2 border-[var(--color-primary)]/30" />
+            <div>
+              <p class="font-bold text-[var(--color-text)] text-sm">{siteConfig.name}</p>
+              <p class="text-xs text-[var(--color-text-muted)]">Islamabad, Pakistan · UTC+5</p>
+            </div>
+          </div>
+
+          <!-- Quick info rows -->
+          <div class="space-y-3 mb-6">
+            {[
+              { icon: "🟢", label: "Status", value: "Available now" },
+              { icon: "⚡", label: "Response", value: "Within 24 hours" },
+              { icon: "🌍", label: "Works", value: "Remote worldwide" },
+              { icon: "💬", label: "Preferred", value: "Email or form" },
+            ].map(item => (
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-[var(--color-text-muted)] flex items-center gap-2">
+                  <span>{item.icon}</span>{item.label}
+                </span>
+                <span class="font-semibold text-[var(--color-text)] text-xs">{item.value}</span>
+              </div>
+            ))}
+          </div>
+
+          <div class="border-t border-[var(--color-border)] pt-5 space-y-2.5">
+            {siteConfig.social.linkedin && (
+              <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#0077B5] hover:text-white text-[var(--color-text-muted)] transition-all duration-300 text-sm font-medium group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="group-hover:text-[#0077B5] transition-colors"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                Connect on LinkedIn
+              </a>
+            )}
+            {siteConfig.social.github && (
+              <a href={siteConfig.social.github} target="_blank" rel="noopener noreferrer"
+                class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:text-white text-[var(--color-text-muted)] transition-all duration-300 text-sm font-medium group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="group-hover:text-[var(--color-primary)] transition-colors"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                View GitHub
+              </a>
+            )}
+            <a href={siteConfig.resume} download
+              class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:text-white text-[var(--color-text-muted)] transition-all duration-300 text-sm font-medium group">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="group-hover:text-[var(--color-accent)] transition-colors"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download Resume
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom strip -->
+    <div class="mt-14 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-[var(--color-text-muted)]/60 scroll-fade">
+      <span class="flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse flex-shrink-0"></span>
+        Islamabad, Pakistan
+      </span>
+      <span class="hidden sm:inline">·</span>
+      <span>UTC+5</span>
+      <span class="hidden sm:inline">·</span>
+      <span>Remote worldwide</span>
+      <span class="hidden sm:inline">·</span>
+      <span>Open to freelance and full-time</span>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const COOLDOWN_MS = 10 * 60 * 1000; // 10 minutes
+  const LS_KEY = 'portfolio_last_submit';
+
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const btnText = document.getElementById('btn-text');
+  const btnArrow = document.getElementById('btn-arrow');
+  const btnSpinner = document.getElementById('btn-spinner');
+  const successMsg = document.getElementById('form-success');
+  const errorMsg = document.getElementById('form-error');
+  const accessKeyField = document.getElementById('access-key-field') as HTMLInputElement | null;
+
+  // Inject access key from data attribute (keeps it out of static HTML)
+  if (form && accessKeyField) {
+    accessKeyField.value = form.dataset.web3key ?? '';
+  }
+
+  // Check if still in cooldown on page load
+  function getRemainingCooldown(): number {
+    const last = parseInt(localStorage.getItem(LS_KEY) ?? '0', 10);
+    return Math.max(0, COOLDOWN_MS - (Date.now() - last));
+  }
+
+  function setCooldownUI(remainingMs: number) {
+    if (!submitBtn || !btnText) return;
+    if (remainingMs <= 0) {
+      submitBtn.disabled = false;
+      btnText.textContent = 'Send Message';
+      return;
+    }
+    const mins = Math.ceil(remainingMs / 60000);
+    submitBtn.disabled = true;
+    btnText.textContent = `Try again in ${mins}m`;
+    setTimeout(() => setCooldownUI(getRemainingCooldown()), 30000);
+  }
+
+  // Apply cooldown on load
+  setCooldownUI(getRemainingCooldown());
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!submitBtn || !btnText || !btnArrow || !btnSpinner || !successMsg || !errorMsg) return;
+
+    // Block if in cooldown
+    if (getRemainingCooldown() > 0) return;
+
+    // Loading state
+    submitBtn.disabled = true;
+    btnText.textContent = 'Sending...';
+    btnArrow.classList.add('hidden');
+    btnSpinner.classList.remove('hidden');
+    successMsg.classList.add('hidden');
+    errorMsg.classList.add('hidden');
+
+    try {
+      const data = new FormData(form);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data,
+      });
+      const json = await res.json();
+
+      if (json.success) {
+        form.reset();
+        successMsg.classList.remove('hidden');
+        // Set cooldown
+        localStorage.setItem(LS_KEY, String(Date.now()));
+        setCooldownUI(COOLDOWN_MS);
+      } else {
+        errorMsg.classList.remove('hidden');
+        submitBtn.disabled = false;
+        btnText.textContent = 'Send Message';
+      }
+    } catch {
+      errorMsg.classList.remove('hidden');
+      submitBtn.disabled = false;
+      btnText.textContent = 'Send Message';
+    } finally {
+      btnArrow.classList.remove('hidden');
+      btnSpinner.classList.add('hidden');
+    }
+  });
+</script>
+
+<style>
+  .contact-input::placeholder {
+    color: rgba(152, 160, 180, 0.35);
+  }
+  select.contact-input option {
+    background-color: #0d1226;
+    color: #e6eef9;
+  }
+</style>

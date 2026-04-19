@@ -1,156 +1,198 @@
 ---
+const phases = [
+  {
+    num: "01",
+    tag: "Understand",
+    title: "Deep Dive First",
+    body: "I don't write a line of code until I understand what you're actually building, who uses it, and what done looks like. Requirements first, then architecture, then code.",
+    bullets: ["Requirements & scope clarity", "Architecture planning", "Tech stack decisions", "Timeline & milestone setup"],
+    image: "/Phase 1.png",
+    color: "var(--color-primary)",
+  },
+  {
+    num: "02",
+    tag: "Build",
+    title: "Iterate Fast, Ship Often",
+    body: "I build in focused sprints and share working demos, not slideshows. Regular updates, honest communication, no surprises at the end.",
+    bullets: ["Sprint-based delivery", "Working demos at every stage", "Daily/weekly updates", "Feedback loops built in"],
+    image: "/Phase 2.png",
+    color: "var(--color-accent)",
+  },
+  {
+    num: "03",
+    tag: "Ship",
+    title: "Deploy & Hand Over Clean",
+    body: "Performance tuning, final QA, clean documentation, and a handover that actually makes sense. You own your code. No vendor lock-in, no mystery boxes.",
+    bullets: ["Performance optimisation", "Full QA & testing", "Clean documentation", "You own everything"],
+    image: "/Phase 3.png",
+    color: "#a855f7",
+  },
+];
 ---
 
 <section id="approach" class="relative py-20 sm:py-32 overflow-hidden">
-  <!-- Background Elements -->
-  <div class="absolute top-1/4 left-0 w-96 h-96 bg-[var(--color-primary)] opacity-5 blur-[120px] rounded-full"></div>
-  <div class="absolute bottom-1/4 right-0 w-96 h-96 bg-[var(--color-accent)] opacity-5 blur-[120px] rounded-full"></div>
 
-  <div class="container mx-auto px-6 sm:px-12 md:px-16 relative z-10">
-    <!-- Section Header -->
-    <div class="text-center mb-16 scroll-fade">
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
-        <span class="text-2xl">🚀</span>
-        <span class="text-sm font-medium text-[var(--color-text-muted)]">My Process</span>
+  <div class="absolute top-1/4 left-0 w-96 h-96 bg-[var(--color-primary)] opacity-5 blur-[120px] rounded-full pointer-events-none"></div>
+  <div class="absolute bottom-1/4 right-0 w-96 h-96 bg-[var(--color-accent)] opacity-5 blur-[120px] rounded-full pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-6 sm:px-12 md:px-16 lg:px-24 relative z-10">
+
+    <!-- Header -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-end mb-14">
+      <div class="lg:col-span-4 scroll-slide-left">
+        <h2 class="clip-reveal text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold text-[var(--color-text)]">How I Work</h2>
+        <div class="w-[75px] h-[5px] mt-2 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] accent-bar"></div>
       </div>
-      <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-[var(--color-text)] mb-6">
-        How I <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">Work</span>
-      </h2>
-      <p class="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
-        A proven 3-phase approach to deliver exceptional results
-      </p>
-    </div>
-
-    <!-- Phase Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mb-16">
-      <!-- Phase 1 -->
-      <div class="approach-card group relative p-8 rounded-3xl bg-[var(--glass-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] transition-all duration-700 overflow-hidden min-h-[380px] flex flex-col justify-between scroll-fade">
-        <!-- Hover Image Background with better opacity -->
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700 z-0">
-          <img src="/Phase 1.png" alt="Phase 1 Planning" class="w-full h-full object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--color-bg)]/50 to-[var(--color-bg)]"></div>
-        </div>
-        
-        <!-- Glow effect -->
-        <div class="absolute -inset-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-700 -z-10"></div>
-        
-        <div class="relative z-10 transform group-hover:-translate-y-3 transition-transform duration-700">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] flex items-center justify-center text-2xl font-bold text-white shadow-lg">
-              1
-            </div>
-            <div class="text-sm font-bold text-[var(--color-primary)] tracking-wider uppercase">Phase 1</div>
-          </div>
-          
-          <h3 class="text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-4 group-hover:text-[var(--color-accent)] transition-colors duration-500">
-            Planning & Strategy
-          </h3>
-          <p class="text-[var(--color-text-muted)] leading-relaxed group-hover:text-[var(--color-text)] transition-colors duration-500">
-            We'll collaborate to map out your goals, target audience, and site structure — focusing on clarity and conversions.
-          </p>
-        </div>
-        
-        <!-- Decorative corner -->
-        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[var(--color-primary)]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-      </div>
-
-      <!-- Phase 2 -->
-      <div class="approach-card group relative p-8 rounded-3xl bg-[var(--glass-bg)] border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all duration-700 overflow-hidden min-h-[380px] flex flex-col justify-between scroll-fade" style="animation-delay: 0.1s">
-        <!-- Hover Image Background -->
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700 z-0">
-          <img src="/Phase 2.png" alt="Phase 2 Development" class="w-full h-full object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--color-bg)]/50 to-[var(--color-bg)]"></div>
-        </div>
-
-        <!-- Glow effect -->
-        <div class="absolute -inset-1 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-primary)] rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-700 -z-10"></div>
-
-        <div class="relative z-10 transform group-hover:-translate-y-3 transition-transform duration-700">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-primary)] flex items-center justify-center text-2xl font-bold text-white shadow-lg">
-              2
-            </div>
-            <div class="text-sm font-bold text-[var(--color-accent)] tracking-wider uppercase">Phase 2</div>
-          </div>
-          
-          <h3 class="text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-4 group-hover:text-[var(--color-primary)] transition-colors duration-500">
-            Development & Updates
-          </h3>
-          <p class="text-[var(--color-text-muted)] leading-relaxed group-hover:text-[var(--color-text)] transition-colors duration-500">
-            From wireframes to working builds — regular updates, demos, and iterative feedback keep the project on track.
-          </p>
-        </div>
-        
-        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[var(--color-accent)]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-      </div>
-
-      <!-- Phase 3 -->
-      <div class="approach-card group relative p-8 rounded-3xl bg-[var(--glass-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] transition-all duration-700 overflow-hidden min-h-[380px] flex flex-col justify-between scroll-fade" style="animation-delay: 0.2s">
-        <!-- Hover Image Background -->
-        <div class="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700 z-0">
-          <img src="/Phase 3.png" alt="Phase 3 Launch" class="w-full h-full object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--color-bg)]/50 to-[var(--color-bg)]"></div>
-        </div>
-
-        <!-- Glow effect -->
-        <div class="absolute -inset-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-700 -z-10"></div>
-
-        <div class="relative z-10 transform group-hover:-translate-y-3 transition-transform duration-700">
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-accent)] flex items-center justify-center text-2xl font-bold text-white shadow-lg">
-              3
-            </div>
-            <div class="text-sm font-bold text-[var(--color-primary)] tracking-wider uppercase">Phase 3</div>
-          </div>
-          
-          <h3 class="text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-4 group-hover:text-[var(--color-accent)] transition-colors duration-500">
-            Launch & Handover
-          </h3>
-          <p class="text-[var(--color-text-muted)] leading-relaxed group-hover:text-[var(--color-text)] transition-colors duration-500">
-            Final QA, performance tuning, and deployment. I provide documentation and a clear handover plan for long-term success.
-          </p>
-        </div>
-        
-        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[var(--color-primary)]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+      <div class="lg:col-span-8 scroll-fade">
+        <p class="text-lg text-[var(--color-text-muted)] max-w-xl leading-relaxed">
+          No vague promises. No disappearing acts. A clear process that ships real, working software.
+        </p>
       </div>
     </div>
 
-    <!-- CTA Card -->
-    <div class="max-w-4xl mx-auto scroll-fade">
-      <div class="relative group p-10 md:p-12 rounded-3xl bg-gradient-to-br from-[var(--glass-bg)] to-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] transition-all duration-500 overflow-hidden">
-        <!-- Animated background -->
-        <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-primary)]/5 to-[var(--color-accent)]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        
-        <div class="relative z-10 text-center">
-          <h3 class="text-3xl md:text-4xl font-bold text-[var(--color-text)] mb-4">
-            Ready to Start Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">Project</span>?
-          </h3>
-          <p class="text-lg text-[var(--color-text-muted)] mb-8 max-w-2xl mx-auto">
-            Let's discuss your vision and create something extraordinary together.
-          </p>
-          <a 
-            href="#hero" 
-            class="inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-white font-bold rounded-xl hover:shadow-[0_0_40px_rgba(124,58,237,0.5)] hover:-translate-y-1 transition-all duration-300 group"
-          >
-            <span>Start a Project</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
+    <!-- Step tabs -->
+    <div class="flex gap-3 mb-10 scroll-fade">
+      {phases.map((p, i) => (
+        <button
+          class="phase-tab flex items-center gap-2.5 px-5 py-3 rounded-xl border transition-all duration-300 text-sm font-bold"
+          data-phase={i}
+          style={i === 0 ? `border-color:${p.color}40; background:${p.color}15; color:${p.color}` : ''}
+        >
+          <span class="text-xs font-mono opacity-60">{p.num}</span>
+          {p.tag}
+        </button>
+      ))}
+    </div>
+
+    <!-- Content area -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+
+      <!-- Left: text -->
+      <div class="phase-content-wrap scroll-slide-left">
+        {phases.map((p, i) => (
+          <div class="phase-content" data-phase={i} style={i !== 0 ? 'display:none' : ''}>
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-black text-white shadow-lg" style={`background: linear-gradient(135deg, ${p.color}, ${p.color}99)`}>
+                {p.num}
+              </div>
+              <div>
+                <span class="text-xs font-black tracking-widest uppercase" style={`color:${p.color}`}>{p.tag}</span>
+                <h3 class="text-2xl sm:text-3xl font-bold text-[var(--color-text)]">{p.title}</h3>
+              </div>
+            </div>
+            <p class="text-[var(--color-text-muted)] leading-relaxed mb-6">{p.body}</p>
+            <ul class="space-y-2.5">
+              {p.bullets.map(b => (
+                <li class="flex items-center gap-3 text-sm text-[var(--color-text)]">
+                  <span class="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={`background:${p.color}20`}>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path d="M2 5l2.5 2.5L8 2.5" stroke={p.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <!-- Right: screenshot -->
+      <div class="scroll-fade">
+        <div class="relative rounded-2xl overflow-hidden border border-[var(--color-border)] bg-[var(--glass-bg)] shadow-xl">
+          <!-- Browser chrome -->
+          <div class="flex items-center gap-1.5 px-4 py-2.5 bg-black/30 border-b border-white/10">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-400/90"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-400/90"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-400/90"></span>
+            <div class="ml-2 flex-1 h-5 rounded-md bg-white/10 text-[10px] text-white/50 flex items-center px-3 font-mono" id="phase-url">
+              phase-01 / understand
+            </div>
+          </div>
+          <div class="relative h-64 sm:h-72 overflow-hidden" id="phase-img-wrap">
+            {phases.map((p, i) => (
+              <img
+                src={p.image}
+                alt={`Phase ${p.num}`}
+                class="phase-img absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500"
+                style={i !== 0 ? 'opacity:0' : 'opacity:1'}
+                data-phase={i}
+                loading="lazy"
+              />
+            ))}
+          </div>
         </div>
       </div>
+
     </div>
+
+    <!-- Progress bar -->
+    <div class="flex gap-2 mt-10 scroll-fade">
+      {phases.map((p, i) => (
+        <div class="phase-bar flex-1 h-1 rounded-full bg-[var(--color-border)] overflow-hidden">
+          <div class="phase-bar-fill h-full rounded-full transition-all duration-500 origin-left" data-phase={i}
+            style={i === 0 ? `background:${p.color}; transform:scaleX(1)` : 'transform:scaleX(0)'}></div>
+        </div>
+      ))}
+    </div>
+
   </div>
 </section>
 
-<style>
-  .approach-card {
-    transform-style: preserve-3d;
+<script>
+  const phases = [
+    { color: 'var(--color-primary)', url: 'phase-01 / understand' },
+    { color: 'var(--color-accent)',  url: 'phase-02 / build'      },
+    { color: '#a855f7',              url: 'phase-03 / ship'       },
+  ];
+
+  let active = 0;
+  const tabs    = document.querySelectorAll<HTMLElement>('.phase-tab');
+  const content = document.querySelectorAll<HTMLElement>('.phase-content');
+  const imgs    = document.querySelectorAll<HTMLElement>('.phase-img');
+  const bars    = document.querySelectorAll<HTMLElement>('.phase-bar-fill');
+  const urlEl   = document.getElementById('phase-url');
+
+  function activate(i: number) {
+    // tabs
+    tabs.forEach((t, ti) => {
+      const p = phases[ti];
+      if (ti === i) {
+        t.style.borderColor = p.color + '40';
+        t.style.background  = p.color + '15';
+        t.style.color       = p.color;
+      } else {
+        t.style.borderColor = '';
+        t.style.background  = '';
+        t.style.color       = '';
+      }
+    });
+    // content
+    content.forEach((c, ci) => { c.style.display = ci === i ? '' : 'none'; });
+    // images
+    imgs.forEach((img, ii) => { (img as HTMLImageElement).style.opacity = ii === i ? '1' : '0'; });
+    // bars
+    bars.forEach((b, bi) => { b.style.transform = bi === i ? 'scaleX(1)' : 'scaleX(0)'; b.style.background = bi === i ? phases[bi].color : ''; });
+    // url
+    if (urlEl) urlEl.textContent = phases[i].url;
+    active = i;
   }
-  
-  .approach-card:hover {
-    transform: translateY(-8px) rotateX(2deg);
-    box-shadow: 0 20px 60px rgba(124, 58, 237, 0.15);
+
+  tabs.forEach((t, i) => t.addEventListener('click', () => activate(i)));
+
+  // Auto-advance every 5s
+  setInterval(() => activate((active + 1) % phases.length), 5000);
+</script>
+
+<style>
+  .phase-tab {
+    border-color: var(--color-border);
+    color: var(--color-text-muted);
+    background: transparent;
+    cursor: pointer;
+  }
+  .phase-tab:hover {
+    border-color: rgba(124,58,237,0.3);
+    color: var(--color-text);
   }
 </style>

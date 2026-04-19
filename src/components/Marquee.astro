@@ -1,0 +1,83 @@
+---
+// Each entry: { name, slug (simpleicons.org), color }
+const row1 = [
+  { name: "Shopify",      slug: "shopify",       color: "#96BF48" },
+  { name: "React",        slug: "react",         color: "#61DAFB" },
+  { name: "TypeScript",   slug: "typescript",    color: "#3178C6" },
+  { name: "Next.js",      slug: "nextdotjs",     color: "#aaaaaa" },
+  { name: "Node.js",      slug: "nodedotjs",     color: "#339933" },
+  { name: "Python",       slug: "python",        color: "#3776AB" },
+  { name: "Flutter",      slug: "flutter",       color: "#54C5F8" },
+  { name: "MongoDB",      slug: "mongodb",       color: "#47A248" },
+  { name: "GraphQL",      slug: "graphql",       color: "#E10098" },
+  { name: "Hydrogen",     slug: "shopify",       color: "#96BF48" },
+  { name: "Docker",       slug: "docker",        color: "#2496ED" },
+  { name: "Tailwind CSS", slug: "tailwindcss",   color: "#06B6D4" },
+];
+
+const row2 = [
+  { name: "ASP.NET",      slug: "dotnet",        color: "#512BD4" },
+  { name: "MySQL",        slug: "mysql",         color: "#4479A1" },
+  { name: "PHP",          slug: "php",           color: "#777BB4" },
+  { name: "C#",           slug: "csharp",        color: "#9B4F96", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" },
+  { name: "SQL Server",   slug: "microsoftsqlserver", color: "#CC2927", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" },
+  { name: "Git",          slug: "git",           color: "#F05032" },
+  { name: "Vercel",       slug: "vercel",        color: "#aaaaaa" },
+  { name: "Express.js",   slug: "express",       color: "#aaaaaa" },
+  { name: "REST APIs",    slug: "openapiinitiative", color: "#6BA539" },
+  { name: "Astro",        slug: "astro",         color: "#FF5D01" },
+  { name: "Java",         slug: "java",          color: "#ED8B00", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" },
+  { name: "Dart",         slug: "dart",          color: "#0175C2" },
+];
+
+const r1 = [...row1, ...row1];
+const r2 = [...row2, ...row2];
+---
+
+<div class="py-10 overflow-hidden border-y border-[var(--color-border)] bg-[var(--glass-bg)] relative">
+  <div class="marquee-mask space-y-3">
+
+    <!-- Row 1 — scrolls left -->
+    <div class="flex w-max animate-marquee gap-3">
+      {r1.map((tech) => (
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg)] border border-[var(--color-border)] whitespace-nowrap hover:border-opacity-60 transition-all duration-300 cursor-default select-none group"
+          style={`--tech-color: ${tech.color}`}>
+          <span class="tech-icon-wrap w-3.5 h-3.5 flex-shrink-0 flex items-center justify-center">
+            <img
+              src={(tech as any).iconUrl ?? `https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#','')}`}
+              alt=""
+              width="14"
+              height="14"
+              class="w-3.5 h-3.5 object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+              loading="eager"
+              onerror="this.parentElement.innerHTML='<span style=\'width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6\'></span>'"
+            />
+          </span>
+          <span class="group-hover:text-[var(--color-text)] transition-colors duration-300">{tech.name}</span>
+        </span>
+      ))}
+    </div>
+
+    <!-- Row 2 — scrolls right -->
+    <div class="flex w-max animate-marquee-reverse gap-3">
+      {r2.map((tech) => (
+        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-[var(--color-text-muted)] bg-[var(--color-bg)] border border-[var(--color-border)] whitespace-nowrap transition-all duration-300 cursor-default select-none group"
+          style={`--tech-color: ${tech.color}`}>
+          <span class="tech-icon-wrap w-3.5 h-3.5 flex-shrink-0 flex items-center justify-center">
+            <img
+              src={(tech as any).iconUrl ?? `https://cdn.simpleicons.org/${tech.slug}/${tech.color.replace('#','')}`}
+              alt=""
+              width="14"
+              height="14"
+              class="w-3.5 h-3.5 object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+              loading="eager"
+              onerror="this.parentElement.innerHTML='<span style=\'width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6\'></span>'"
+            />
+          </span>
+          <span class="group-hover:text-[var(--color-text)] transition-colors duration-300">{tech.name}</span>
+        </span>
+      ))}
+    </div>
+
+  </div>
+</div>

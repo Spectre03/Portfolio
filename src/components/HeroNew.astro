@@ -1,158 +1,440 @@
 ---
-import { BackgroundPaths } from "./ui/background-paths";
 import { siteConfig } from "../config";
 import TechStack from "./TechStack.astro";
+
+const stats = [
+  { value: 3,  suffix: "+", label: "Years Coding"     },
+  { value: 7,  suffix: "+", label: "Projects Shipped" },
+  { value: 2,  suffix: "",  label: "Internships"      },
+  { value: 9,  suffix: "",  label: "Certifications"   },
+];
 ---
 
-<section id="hero" class="relative min-h-screen">
-  <BackgroundPaths client:load>
-    <div class="min-h-screen flex flex-col justify-center pt-20 pb-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        {/* Left: Text Content - Better Aligned */}
-        <div class="lg:col-span-7 text-center lg:text-left z-10 order-2 lg:order-1 lg:pr-8">
-          <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full glass anim-fadeup mb-6" style="animation-delay:.05s">
-            <span class="text-2xl">👋</span>
-            <span class="text-sm font-medium text-[var(--color-text-muted)]">Welcome — I build apps that scale</span>
+<section id="hero" class="relative min-h-screen overflow-hidden">
+
+  <!-- Aurora background -->
+  <div class="aurora-bg" aria-hidden="true">
+    <div class="aurora-blob aurora-1"></div>
+    <div class="aurora-blob aurora-2"></div>
+    <div class="aurora-blob aurora-3"></div>
+  </div>
+
+  <!-- Particle canvas -->
+  <canvas id="hero-particles" class="absolute inset-0 w-full h-full pointer-events-none z-0" aria-hidden="true"></canvas>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-10 md:px-14 min-h-screen flex flex-col justify-center pt-24 pb-12">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+
+      <!-- ═══ LEFT ═══ -->
+      <div class="order-1 text-center lg:text-left">
+
+        <!-- Badges -->
+        <div class="flex flex-wrap items-center gap-2 justify-center lg:justify-start mb-6 anim-fadeup" style="animation-delay:.05s">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-green-500/30 bg-green-500/10">
+            <span class="relative flex h-2 w-2 flex-shrink-0">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+            </span>
+            <span class="text-xs font-semibold text-green-400">{siteConfig.availability}</span>
           </div>
-
-          <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight text-[var(--color-text)] tracking-tight mb-6 anim-drop" style="animation-delay:.15s">
-            {siteConfig.name}
-          </h1>
-
-          <div class="mb-8">
-            <div class="text-lg text-[var(--color-text-muted)] mb-1">Software Engineer</div>
-            <div class="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-primary)]">
-              {siteConfig.title}
-            </div>
-          </div>
-
-          <p class="max-w-2xl text-[var(--color-text-muted)] text-lg sm:text-xl leading-relaxed mb-10 anim-fadeup mx-auto lg:mx-0" style="animation-delay:.25s">
-            {siteConfig.description}
-          </p>
-
-          <div class="flex flex-col sm:flex-row items-center gap-6 anim-fadeup justify-center lg:justify-start" style="animation-delay:.35s">
-            <div class="flex items-center gap-4">
-              <a href="#projects" class="group relative inline-flex items-center justify-center px-8 py-3.5 text-base font-bold text-white transition-all duration-200 bg-[var(--color-primary)] font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)] hover:bg-[var(--color-accent)] shadow-[0_0_20px_rgba(124,58,237,0.5)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:-translate-y-1">
-                View My Work
-              </a>
-              <a href="#about" class="group relative inline-flex items-center justify-center px-8 py-3.5 text-base font-bold text-[var(--color-text)] transition-all duration-200 bg-transparent border-2 border-[var(--color-border)] font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-[var(--glass-bg)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]">
-                Learn More
-              </a>
-            </div>
-
-            {/* Social Icons */}
-            <div class="flex items-center gap-3 pl-2 sm:border-l border-[var(--color-border)] sm:pl-6">
-              {siteConfig.social?.email && (
-                <a href={`mailto:${siteConfig.social.email}`} aria-label="Email" class="p-3 rounded-lg bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] hover:shadow-[0_0_15px_rgba(124,58,237,0.3)] transition-all duration-300 hover:-translate-y-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                    <polyline points="22,6 12,13 2,6"></polyline>
-                  </svg>
-                </a>
-              )}
-              {siteConfig.social?.linkedin && (
-                <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="p-3 rounded-lg bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] hover:shadow-[0_0_15px_rgba(124,58,237,0.3)] transition-all duration-300 hover:-translate-y-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                    <rect x="2" y="9" width="4" height="12"></rect>
-                    <circle cx="4" cy="4" r="2"></circle>
-                  </svg>
-                </a>
-              )}
-              {siteConfig.social?.github && (
-                <a href={siteConfig.social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="p-3 rounded-lg bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] hover:shadow-[0_0_15px_rgba(124,58,237,0.3)] transition-all duration-300 hover:-translate-y-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                  </svg>
-                </a>
-              )}
-            </div>
+          <div class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#96BF48]/30 bg-[#96BF48]/[0.08]">
+            <img src="https://cdn.simpleicons.org/shopify/96BF48" alt="Shopify" width="13" height="13" loading="eager" />
+            <span class="text-xs font-semibold text-[#96BF48]">Shopify Hydrogen</span>
           </div>
         </div>
 
-        {/* Right: Profile Picture with Animated Circles */}
-        <div class="lg:col-span-5 flex items-center justify-center relative order-1 lg:order-2">
-          <div id="profile-scroll-container" class="relative flex items-center justify-center">
-            <div class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-72 lg:h-72">
-              {/* Large Gradient Circle Background (moves with scroll) */}
-              <div id="gradient-circle" class="absolute -inset-8 rounded-full bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-accent)] to-[var(--color-primary)] opacity-20 blur-3xl transition-all duration-500"></div>
-              
-              {/* Animated Border Circles (move with scroll) */}
-              <div id="circle-1" class="absolute inset-0 rounded-full border-2 border-[var(--color-accent)] opacity-30 animate-circle-rotate transition-all duration-500"></div>
-              <div id="circle-2" class="absolute inset-4 rounded-full border border-[var(--color-primary)] opacity-25 animate-circle-rotate-reverse transition-all duration-500"></div>
-              <div id="circle-3" class="absolute inset-8 rounded-full border border-[var(--color-accent)] opacity-20 animate-circle-pulse transition-all duration-500"></div>
-              
-              {/* Profile Image Container (moves with scroll) */}
-              <div id="profile-image-container" class="absolute inset-6 rounded-full overflow-hidden border-4 border-[var(--color-border)] bg-[var(--color-bg)] z-10 shadow-[0_20px_60px_rgba(0,0,0,0.3)] transition-all duration-500 hover:border-[var(--color-primary)] hover:shadow-[0_20px_60px_rgba(124,58,237,0.4)]">
-                <img src="/obaid.jpeg" alt="Obaidullah Arshad" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" loading="eager" />
+        <!-- Name -->
+        <h1 id="hero-name" class="font-extrabold text-[var(--color-text)] tracking-tight mb-3 anim-fadeup" style="font-size:clamp(2.6rem,6.5vw,5rem);line-height:1.05;animation-delay:.10s">
+          {siteConfig.name}
+        </h1>
+
+        <!-- Role with gradient -->
+        <p class="text-lg sm:text-xl lg:text-2xl font-bold gradient-text-animated mb-4 anim-fadeup" style="animation-delay:.16s">
+          {siteConfig.title}
+        </p>
+
+        <!-- Tagline -->
+        <p class="text-[var(--color-text-muted)] text-sm sm:text-base leading-relaxed max-w-md mx-auto lg:mx-0 mb-8 anim-fadeup" style="animation-delay:.22s">
+          I build <span id="typing-word" class="font-bold text-[var(--color-text)]">storefronts</span> that convert and scale.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-3 justify-center lg:justify-start mb-8 anim-fadeup" style="animation-delay:.28s">
+          <a href="#projects" class="magnetic inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-white bg-[var(--color-primary)] rounded-xl hover:bg-[var(--color-accent)] shadow-[0_0_24px_rgba(124,58,237,0.4)] hover:shadow-[0_0_32px_rgba(6,182,212,0.45)] transition-all duration-200">
+            View My Work
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href={siteConfig.resume} download class="magnetic inline-flex items-center gap-2 px-6 py-3 text-sm font-bold text-[var(--color-text)] border border-[var(--color-border)] rounded-xl hover:border-[var(--color-primary)]/60 hover:text-[var(--color-primary)] hover:bg-[var(--glass-bg)] transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download CV
+          </a>
+          <a href={siteConfig.social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+            class="magnetic w-10 h-10 inline-flex items-center justify-center rounded-xl border border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-primary)]/60 hover:text-[var(--color-primary)] transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+          <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+            class="magnetic w-10 h-10 inline-flex items-center justify-center rounded-xl border border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[#0077B5]/60 hover:text-[#0077B5] transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-4 gap-3 anim-fadeup" style="animation-delay:.35s" id="hero-stats">
+          {stats.map(s => (
+            <div class="text-center lg:text-left">
+              <div class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]">
+                <span class="stat-num" data-target={s.value} data-suffix={s.suffix}>0{s.suffix}</span>
               </div>
+              <div class="text-[10px] sm:text-xs text-[var(--color-text-muted)] font-medium mt-0.5 leading-tight">{s.label}</div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+
+      <!-- ═══ RIGHT: Photo + code blocks ═══ -->
+      <div class="order-2 flex justify-center lg:justify-end anim-fadeup" style="animation-delay:.14s">
+        <div class="flex flex-col items-center gap-4 w-full max-w-[400px] lg:max-w-[360px]">
+
+          <!-- Photo with glow -->
+          <div class="relative w-[200px] h-[200px] sm:w-[224px] sm:h-[224px] flex-shrink-0">
+
+            <!-- Ambient glow -->
+            <div class="photo-glow-outer"></div>
+
+            <!-- Single spinning ring -->
+            <div class="photo-ring-inner"></div>
+
+            <!-- Photo -->
+            <img
+              src="/obaid.jpeg"
+              alt="Obaidullah Arshad"
+              class="photo-img"
+              loading="eager"
+            />
+
+            <!-- Available badge -->
+            <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full border border-green-500/30 bg-[var(--glass-bg)] backdrop-blur-md whitespace-nowrap">
+              <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse flex-shrink-0"></span>
+              <span class="text-[10px] font-semibold text-green-400">Open to work</span>
             </div>
           </div>
+
+          <!-- Code cards: visible on all sizes -->
+          <div class="grid w-full grid-cols-1 gap-3 mt-2">
+
+            <!-- Code editor card -->
+            <div class="rounded-2xl border border-[var(--color-border)] overflow-hidden shadow-xl" style="background:#0d1117">
+              <div class="flex items-center gap-1.5 px-3 py-2 border-b border-white/[0.06]" style="background:#161b22">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+                <span class="ml-1.5 text-[10px] font-mono text-white/40 truncate">developer.ts</span>
+              </div>
+              <div class="p-3 font-mono text-[11px] leading-[1.75]">
+                <div><span style="color:#c586c0">const</span> <span style="color:#9cdcfe">dev</span> <span style="color:#fff">=</span> <span style="color:#ffd700">&#123;</span></div>
+                <div class="pl-3"><span style="color:#9cdcfe">role</span><span style="color:#fff">:</span> <span style="color:#ce9178">"Hydrogen"</span><span style="color:#fff">,</span></div>
+                <div class="pl-3"><span style="color:#9cdcfe">stack</span><span style="color:#fff">:</span> <span style="color:#ffd700">[</span><span style="color:#ce9178">"React"</span><span style="color:#fff">,</span><span style="color:#ce9178">"TS"</span><span style="color:#ffd700">]</span><span style="color:#fff">,</span></div>
+                <div class="pl-3"><span style="color:#9cdcfe">available</span><span style="color:#fff">:</span> <span style="color:#569cd6">true</span></div>
+                <div><span style="color:#ffd700">&#125;</span></div>
+              </div>
+            </div>
+
+            <!-- Terminal card -->
+            <div class="rounded-2xl border border-[var(--color-border)] overflow-hidden shadow-xl" style="background:#0d1117">
+              <div class="flex items-center gap-2 px-3 py-2 border-b border-white/[0.06]" style="background:#161b22">
+                <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                <span class="text-[10px] font-mono text-white/40">bash</span>
+              </div>
+              <div class="p-3 font-mono text-[11px] leading-[1.9] space-y-0.5">
+                <div><span style="color:#6ee7b7">❯</span> <span style="color:#fff">npm run deploy</span></div>
+                <div><span style="color:#34d399">✔</span> <span style="color:#6b7280">Build complete</span></div>
+                <div><span style="color:#6ee7b7">❯</span> <span style="color:#fff">git push</span></div>
+                <div class="flex items-center gap-1"><span style="color:#6ee7b7">❯</span> <span id="term-text" style="color:#fff"></span><span class="term-cursor" style="color:#06b6d4">▋</span></div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </div>
 
-      <!-- Tech Stack Section -->
-      <TechStack />
     </div>
-  </BackgroundPaths>
 
-  <style>
-    .anim-drop { animation: dropIn .8s cubic-bezier(.2,.9,.3,1) both; }
-    .anim-fadeup { animation: fadeUp .8s cubic-bezier(.2,.9,.3,1) both; }
-    
-    @keyframes circle-rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    @keyframes circle-rotate-reverse {
-      from { transform: rotate(360deg); }
-      to { transform: rotate(0deg); }
-    }
-    @keyframes circle-pulse {
-      0% { transform: scale(1); opacity: 0.2; }
-      50% { transform: scale(1.05); opacity: 0.4; }
-      100% { transform: scale(1); opacity: 0.2; }
-    }
+    <TechStack />
+  </div>
 
-    .animate-circle-rotate { animation: circle-rotate 20s linear infinite; }
-    .animate-circle-rotate-reverse { animation: circle-rotate-reverse 15s linear infinite; }
-    .animate-circle-pulse { animation: circle-pulse 4s ease-in-out infinite; }
-  </style>
-
-  <script>
-    // Smooth scroll parallax effect for profile picture and ALL circles
-    const profileContainer = document.getElementById('profile-image-container');
-    const gradientCircle = document.getElementById('gradient-circle');
-    const circle1 = document.getElementById('circle-1');
-    const circle2 = document.getElementById('circle-2');
-    const circle3 = document.getElementById('circle-3');
-    
-    if (profileContainer && gradientCircle && circle1 && circle2 && circle3) {
-      let ticking = false;
-      
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            const scrolled = window.scrollY;
-            const baseRate = 0.12; // Smooth parallax rate
-            
-            // Move profile picture down as user scrolls
-            profileContainer.style.transform = `translateY(${scrolled * baseRate}px)`;
-            
-            // Move gradient circle with slightly different rate for depth
-            gradientCircle.style.transform = `translateY(${scrolled * (baseRate * 0.7)}px) scale(${1 + scrolled * 0.0002})`;
-            
-            // Move all border circles together with the profile
-            circle1.style.transform = `translateY(${scrolled * baseRate}px) rotate(${scrolled * 0.1}deg)`;
-            circle2.style.transform = `translateY(${scrolled * baseRate}px) rotate(${-scrolled * 0.15}deg)`;
-            circle3.style.transform = `translateY(${scrolled * baseRate}px) scale(${1 + Math.sin(scrolled * 0.01) * 0.05})`;
-            
-            ticking = false;
-          });
-          
-          ticking = true;
-        }
-      });
-    }
-  </script>
+  <!-- Scroll indicator -->
+  <div id="scroll-indicator" class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10 transition-opacity duration-500">
+    <span class="text-[10px] font-mono tracking-[0.2em] uppercase text-[var(--color-text-muted)]/40">Scroll</span>
+    <div class="w-px h-12 scroll-line-anim"></div>
+  </div>
 </section>
+
+<style>
+  .scroll-line-anim {
+    background: linear-gradient(to bottom, var(--color-primary), transparent);
+    animation: scroll-line 1.8s ease-in-out infinite;
+    transform-origin: top center;
+  }
+  @keyframes scroll-line {
+    0%   { transform: scaleY(0); opacity: 0; }
+    30%  { opacity: 1; }
+    100% { transform: scaleY(1); opacity: 0; }
+  }
+</style>
+
+<script>
+  // Hide scroll indicator after user scrolls
+  const si = document.getElementById('scroll-indicator');
+  if (si) {
+    window.addEventListener('scroll', () => {
+      si.style.opacity = window.scrollY > 80 ? '0' : '1';
+    }, { passive: true });
+  }
+</script>
+
+<style>
+  .anim-fadeup { animation: fadeUp .8s cubic-bezier(.2,.9,.3,1) both; }
+
+  /* ── Aurora ── */
+  .aurora-bg {
+    position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
+  }
+  .aurora-blob {
+    position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.09;
+  }
+  .aurora-1 {
+    width: 700px; height: 700px; background: var(--color-primary);
+    top: -20%; left: -10%; animation: aurora-move-1 14s ease-in-out infinite alternate;
+  }
+  .aurora-2 {
+    width: 500px; height: 500px; background: var(--color-accent);
+    top: 30%; right: -5%; animation: aurora-move-2 18s ease-in-out infinite alternate;
+  }
+  .aurora-3 {
+    width: 400px; height: 400px; background: #a855f7;
+    bottom: -10%; left: 30%; animation: aurora-move-3 12s ease-in-out infinite alternate;
+  }
+  @keyframes aurora-move-1 { from{transform:translate(0,0) scale(1)} to{transform:translate(8%,12%) scale(1.15)} }
+  @keyframes aurora-move-2 { from{transform:translate(0,0) scale(1)} to{transform:translate(-6%,8%) scale(1.1)} }
+  @keyframes aurora-move-3 { from{transform:translate(0,0) scale(1)} to{transform:translate(5%,-10%) scale(1.2)} }
+
+  /* ── Photo glow layers ── */
+  .photo-glow-outer {
+    position: absolute;
+    inset: -28px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #7c3aed55 0%, #06b6d430 50%, transparent 70%);
+    animation: glow-pulse-outer 3s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes glow-pulse-outer {
+    from { opacity: 0.55; transform: scale(1);    }
+    to   { opacity: 1.0;  transform: scale(1.15); }
+  }
+
+  /* ── Single spinning ring ── */
+  .photo-ring-inner {
+    position: absolute; inset: 0; border-radius: 50%; z-index: 2;
+    background: conic-gradient(from 0deg, var(--color-primary), var(--color-accent), #a855f7, var(--color-primary));
+    animation: spin-ring-fast 3.5s linear infinite;
+  }
+  @keyframes spin-ring-fast { to { transform: rotate(360deg); } }
+
+  /* ── Photo itself ── */
+  .photo-img {
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top;
+    z-index: 3;
+    border: 3px solid var(--color-bg);
+    box-shadow: 0 0 30px rgba(124,58,237,0.4), 0 0 60px rgba(124,58,237,0.15), inset 0 0 20px rgba(0,0,0,0.3);
+  }
+
+  /* ── Terminal cursor blink ── */
+  .term-cursor { animation: blink .7s step-end infinite; }
+
+
+  /* Mobile stats 2×2 */
+  @media (max-width: 480px) {
+    #hero-stats { grid-template-columns: repeat(2,1fr) !important; }
+  }
+
+  /* Typing cursor */
+  #typing-word::after { content:'|'; animation: blink .75s step-end infinite; color: var(--color-accent); }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+</style>
+
+<script>
+  // TYPING
+  const words = ["storefronts","web apps","mobile apps","APIs"];
+  const el = document.getElementById('typing-word');
+  if (el) {
+    let wi=0,ci=0,del=false;
+    const type=()=>{const w=words[wi];if(!del){el.textContent=w.slice(0,++ci);if(ci===w.length){del=true;setTimeout(type,1800);return;}setTimeout(type,80);}else{el.textContent=w.slice(0,--ci);if(ci===0){del=false;wi=(wi+1)%words.length;setTimeout(type,300);return;}setTimeout(type,45);}};
+    setTimeout(type,1200);
+  }
+
+  // STAT COUNTERS
+  const statsEl = document.getElementById('hero-stats');
+  if (statsEl) {
+    const nums = statsEl.querySelectorAll<HTMLElement>('.stat-num');
+    const run = (el:HTMLElement) => {
+      const t=parseInt(el.dataset.target??'0'), sf=el.dataset.suffix??''; let c=0;
+      const id=setInterval(()=>{c=Math.min(c+t/40,t);el.textContent=Math.floor(c)+sf;if(c>=t)clearInterval(id);},30);
+    };
+    new IntersectionObserver(e=>{if(e[0].isIntersecting){nums.forEach(run);}},{threshold:.4}).observe(statsEl);
+  }
+
+  // TERMINAL TYPING
+  (function(){
+    const el = document.getElementById('term-text');
+    if (!el) return;
+    const lines = ['open --hire obaid', 'status: available now ✓', 'open --hire obaid'];
+    let li = 0, ci = 0, deleting = false;
+    const type = () => {
+      const line = lines[li % 2]; // cycle between first two
+      if (!deleting) {
+        el.textContent = line.slice(0, ++ci);
+        if (ci === line.length) { deleting = true; setTimeout(type, 2200); return; }
+        setTimeout(type, 75);
+      } else {
+        el.textContent = line.slice(0, --ci);
+        if (ci === 0) { deleting = false; li++; setTimeout(type, 400); return; }
+        setTimeout(type, 35);
+      }
+    };
+    setTimeout(type, 2000);
+  })();
+
+  // ATOMIC PARTICLE SYSTEM — desktop & mobile
+  (function(){
+    const cv=document.getElementById('hero-particles') as HTMLCanvasElement|null;
+    if(!cv)return;
+    const ctx=cv.getContext('2d');
+    if(!ctx)return;
+
+    const isMobile=window.innerWidth<768;
+    let W=0,H=0;
+    const resize=()=>{W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;};
+    window.addEventListener('resize',resize,{passive:true}); resize();
+
+    type Electron={orbitA:number;orbitB:number;tilt:number;angle:number;speed:number;cyan:boolean};
+    type Atom={x:number;y:number;vx:number;vy:number;nucleusR:number;electrons:Electron[]};
+    type Dot={x:number;y:number;vx:number;vy:number;r:number;cyan:boolean};
+
+    // Free-floating small electrons
+    const DOT_COUNT=isMobile?30:55;
+    const dots:Dot[]=Array.from({length:DOT_COUNT},()=>({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*.28, vy:(Math.random()-.5)*.28,
+      r:Math.random()*1.3+.4,
+      cyan:Math.random()<0.3,
+    }));
+
+    const ATOM_COUNT=isMobile?4:7;
+    const atoms:Atom[]=Array.from({length:ATOM_COUNT},()=>{
+      const eCount=isMobile?2:(Math.random()<0.5?2:3);
+      return{
+        x:Math.random()*W, y:Math.random()*H,
+        vx:(Math.random()-.5)*.2, vy:(Math.random()-.5)*.2,
+        nucleusR:isMobile?2.5:(2.5+Math.random()*1.5),
+        electrons:Array.from({length:eCount},(_,i)=>({
+          orbitA:(isMobile?28:40)+Math.random()*24,
+          orbitB:(isMobile?10:13)+Math.random()*15,
+          tilt:(i*Math.PI/eCount)+Math.random()*0.3,
+          angle:Math.random()*Math.PI*2,
+          speed:(0.01+Math.random()*0.014)*(Math.random()<0.5?1:-1),
+          cyan:Math.random()<0.4,
+        })),
+      };
+    });
+
+    let mx=-999,my=-999;
+    window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;},{passive:true});
+    window.addEventListener('touchmove',e=>{const t=e.touches[0];if(t){mx=t.clientX;my=t.clientY;}},{passive:true});
+    window.addEventListener('touchend',()=>{mx=-999;my=-999;},{passive:true});
+
+    const draw=()=>{
+      ctx.clearRect(0,0,W,H);
+
+      // Free-floating electrons
+      for(const d of dots){
+        d.x+=d.vx; d.y+=d.vy;
+        if(d.x<0)d.x=W; else if(d.x>W)d.x=0;
+        if(d.y<0)d.y=H; else if(d.y>H)d.y=0;
+        ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+        ctx.fillStyle=d.cyan?'rgba(6,182,212,0.55)':'rgba(124,58,237,0.5)';
+        ctx.fill();
+        // Dot-to-cursor line
+        const dd=Math.hypot(d.x-mx,d.y-my);
+        if(dd<110){ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(mx,my);ctx.strokeStyle=`rgba(6,182,212,${(1-dd/110)*.35})`;ctx.lineWidth=.7;ctx.stroke();}
+      }
+
+      // Move & wrap atoms
+      for(const a of atoms){
+        a.x+=a.vx; a.y+=a.vy;
+        if(a.x<-100)a.x=W+100; else if(a.x>W+100)a.x=-100;
+        if(a.y<-100)a.y=H+100; else if(a.y>H+100)a.y=-100;
+      }
+
+      // Molecular bonds between nearby nuclei
+      const bondMax=isMobile?150:210;
+      for(let i=0;i<atoms.length;i++){
+        for(let j=i+1;j<atoms.length;j++){
+          const d=Math.hypot(atoms[i].x-atoms[j].x,atoms[i].y-atoms[j].y);
+          if(d<bondMax){
+            ctx.beginPath();ctx.moveTo(atoms[i].x,atoms[i].y);ctx.lineTo(atoms[j].x,atoms[j].y);
+            ctx.strokeStyle=`rgba(124,58,237,${(1-d/bondMax)*0.14})`;ctx.lineWidth=0.7;ctx.stroke();
+          }
+        }
+        // Atom nucleus-to-cursor bond
+        const md=Math.hypot(atoms[i].x-mx,atoms[i].y-my);
+        if(md<170){ctx.beginPath();ctx.moveTo(atoms[i].x,atoms[i].y);ctx.lineTo(mx,my);ctx.strokeStyle=`rgba(6,182,212,${(1-md/170)*0.28})`;ctx.lineWidth=0.8;ctx.stroke();}
+      }
+
+      // Draw each atom
+      for(const a of atoms){
+        // Orbital rings (tilted ellipses)
+        for(const e of a.electrons){
+          ctx.save();ctx.translate(a.x,a.y);ctx.rotate(e.tilt);
+          ctx.beginPath();ctx.ellipse(0,0,e.orbitA,e.orbitB,0,0,Math.PI*2);
+          ctx.strokeStyle='rgba(124,58,237,0.11)';ctx.lineWidth=0.6;ctx.stroke();
+          ctx.restore();
+        }
+
+        // Nucleus glow
+        const ng=ctx.createRadialGradient(a.x,a.y,0,a.x,a.y,a.nucleusR*4);
+        ng.addColorStop(0,'rgba(196,181,253,0.9)');
+        ng.addColorStop(0.35,'rgba(124,58,237,0.5)');
+        ng.addColorStop(1,'rgba(124,58,237,0)');
+        ctx.beginPath();ctx.arc(a.x,a.y,a.nucleusR*4,0,Math.PI*2);ctx.fillStyle=ng;ctx.fill();
+        // Nucleus core
+        ctx.beginPath();ctx.arc(a.x,a.y,a.nucleusR,0,Math.PI*2);ctx.fillStyle='rgba(221,214,254,0.95)';ctx.fill();
+
+        // Electrons
+        for(const e of a.electrons){
+          e.angle+=e.speed;
+          const ct=Math.cos(e.tilt),st=Math.sin(e.tilt),ca=Math.cos(e.angle),sa=Math.sin(e.angle);
+          const ex=a.x+e.orbitA*ca*ct-e.orbitB*sa*st;
+          const ey=a.y+e.orbitA*ca*st+e.orbitB*sa*ct;
+          const ec=e.cyan?'6,182,212':'167,139,250';
+          // Electron glow
+          const eg=ctx.createRadialGradient(ex,ey,0,ex,ey,5);
+          eg.addColorStop(0,`rgba(${ec},0.85)`);eg.addColorStop(1,`rgba(${ec},0)`);
+          ctx.beginPath();ctx.arc(ex,ey,5,0,Math.PI*2);ctx.fillStyle=eg;ctx.fill();
+          // Electron dot
+          ctx.beginPath();ctx.arc(ex,ey,1.8,0,Math.PI*2);ctx.fillStyle=`rgba(${ec},1)`;ctx.fill();
+        }
+      }
+
+      requestAnimationFrame(draw);
+    };
+    draw();
+  })();
+</script>

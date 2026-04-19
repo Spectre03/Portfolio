@@ -1,0 +1,123 @@
+---
+// Interactive WebGL Globe — COBE
+---
+
+<div id="globe-wrapper" class="relative w-full flex items-center justify-center select-none">
+  <!-- Purple glow -->
+  <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <div class="w-[65%] h-[65%] rounded-full bg-[var(--color-primary)] opacity-[0.22] blur-[90px]"></div>
+  </div>
+
+  <canvas id="globe-canvas" class="relative z-10 block rounded-full" style="cursor:grab; touch-action:none;"></canvas>
+
+  <!-- Location pill -->
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--color-border)] bg-[var(--glass-bg)] backdrop-blur-md whitespace-nowrap">
+    <span class="relative flex h-2 w-2 flex-shrink-0">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+    </span>
+    <span class="text-[11px] font-semibold text-[var(--color-text)]">Islamabad, PK</span>
+    <span class="text-[var(--color-text-muted)] text-[11px] mx-0.5">→</span>
+    <span class="text-[11px] font-semibold text-[var(--color-accent)]">Worldwide</span>
+  </div>
+</div>
+
+<script>
+  import createGlobe from 'cobe';
+
+  const canvas = document.getElementById('globe-canvas') as HTMLCanvasElement | null;
+  const wrapper = document.getElementById('globe-wrapper') as HTMLElement | null;
+  if (!canvas || !wrapper) { console.warn('Globe: canvas or wrapper not found'); } else {
+
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+  // Size from viewport — never relies on DOM layout being complete
+  function calcSize(): number {
+    const vw = window.innerWidth;
+    if (vw >= 1024) return Math.min(Math.floor(vw * 0.38), 500);
+    if (vw >= 640)  return Math.min(Math.floor(vw * 0.55), 460);
+    return Math.min(Math.floor(vw * 0.85), 360);
+  }
+
+  function setCanvasSize(size: number) {
+    canvas!.width  = Math.round(size * DPR);
+    canvas!.height = Math.round(size * DPR);
+    canvas!.style.width  = size + 'px';
+    canvas!.style.height = size + 'px';
+    wrapper!.style.minHeight = (size + 40) + 'px'; // +40 for location pill
+  }
+
+  let size = calcSize();
+  setCanvasSize(size);
+
+  let phi = 1.8;
+  let isDragging = false;
+  let lastX = 0;
+  let startPhi = 0;
+
+  const globe = createGlobe(canvas, {
+    devicePixelRatio: DPR,
+    width:  Math.round(size * DPR),
+    height: Math.round(size * DPR),
+    phi:    1.8,
+    theta:  0.22,
+    dark:   1,
+    diffuse:       1.6,
+    mapSamples:    20000,
+    mapBrightness: 7,
+    baseColor:   [0.11, 0.11, 0.18],
+    markerColor: [0.18, 0.88, 1.0],
+    glowColor:   [0.48, 0.22, 0.95],
+    markers: [
+      { location: [33.6844,  73.0479], size: 0.10 }, // Islamabad
+      { location: [40.7128, -74.0060], size: 0.06 }, // New York
+      { location: [51.5074,  -0.1278], size: 0.06 }, // London
+      { location: [25.2048,  55.2708], size: 0.06 }, // Dubai
+      { location: [43.6532, -79.3832], size: 0.05 }, // Toronto
+      { location: [48.8566,   2.3522], size: 0.05 }, // Paris
+      { location: [ 1.3521, 103.8198], size: 0.05 }, // Singapore
+      { location: [-33.8688,151.2093], size: 0.04 }, // Sydney
+      { location: [37.7749,-122.4194], size: 0.05 }, // San Francisco
+    ],
+    onRender(state: Record<string, unknown>) {
+      if (!isDragging) phi += 0.004;
+      (state as any).phi    = phi;
+      (state as any).width  = Math.round(size * DPR);
+      (state as any).height = Math.round(size * DPR);
+    },
+  });
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    const newSize = calcSize();
+    if (Math.abs(newSize - size) < 10) return;
+    size = newSize;
+    setCanvasSize(size);
+  }, { passive: true });
+
+  // ── Mouse drag ──
+  canvas.addEventListener('mousedown', e => {
+    isDragging = true; lastX = e.clientX; startPhi = phi;
+    canvas.style.cursor = 'grabbing';
+  });
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    canvas.style.cursor = 'grab';
+  });
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    phi = startPhi - (e.clientX - lastX) * 0.007;
+  });
+
+  // ── Touch drag ──
+  canvas.addEventListener('touchstart', e => {
+    isDragging = true; lastX = e.touches[0].clientX; startPhi = phi;
+  }, { passive: true });
+  canvas.addEventListener('touchend', () => { isDragging = false; }, { passive: true });
+  canvas.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    phi = startPhi - (e.touches[0].clientX - lastX) * 0.007;
+  }, { passive: true });
+
+  } // end if canvas && wrapper
+</script>

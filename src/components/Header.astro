@@ -1,50 +1,224 @@
 ---
 import { siteConfig } from "../config";
 
-const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
-const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
-const hasEducation = siteConfig.education && siteConfig.education.length > 0;
+const navLinks = [
+  { label: "About",      href: "#about"      },
+  { label: "Projects",   href: "#projects"   },
+  { label: "Experience", href: "#experience" },
+  { label: "Contact",    href: "#contact"    },
+];
 ---
 
 <header id="header" class="fixed inset-x-0 top-6 z-50">
   <div class="max-w-7xl mx-auto px-6">
     <nav class="flex items-center justify-between glass rounded-full py-2 px-4 md:px-6">
-      <div class="flex items-center gap-4">
-        <a href="#hero" class="text-lg font-semibold text-white hover:text-[var(--color-accent)] transition-colors">{siteConfig.name}</a>
-      </div>
 
+      <!-- Logo -->
+      <a href="#hero" class="text-lg font-bold text-white hover:text-[var(--color-accent)] transition-colors">
+        {siteConfig.name.split(" ")[0]}<span class="text-[var(--color-primary)]">.</span>
+      </a>
+
+      <!-- Desktop links -->
       <ul class="hidden md:flex items-center gap-6">
-        <li><a href="#about" class="text-white hover:text-[var(--color-accent)] hover-glow transition-colors">About</a></li>
-        {hasProjects && <li><a href="#projects" class="text-white hover:text-[var(--color-accent)] hover-glow transition-colors">Projects</a></li>}
-        {hasExperience && <li><a href="#experience" class="text-white hover:text-[var(--color-accent)] hover-glow transition-colors">Experience</a></li>}
-        {hasEducation && <li><a href="#education" class="text-white hover:text-[var(--color-accent)] hover-glow transition-colors">Education</a></li>}
+        {navLinks.map(link => (
+          <li>
+            <a href={link.href} data-nav
+              class="nav-link text-[var(--color-text-muted)] hover:text-white transition-colors text-sm font-medium">
+              {link.label}
+            </a>
+          </li>
+        ))}
       </ul>
 
       <div class="flex items-center gap-3">
-        <span class="text-sm font-medium text-[var(--color-accent)] hover:text-[var(--color-primary)] transition-colors">Software Engineer</span>
+        <!-- Desktop resume button -->
+        <a href={siteConfig.resume} download
+          class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold text-white bg-[var(--color-primary)] hover:bg-[var(--color-accent)] transition-all duration-300 shadow-[0_0_15px_rgba(124,58,237,0.4)] hover:shadow-[0_0_20px_rgba(6,182,212,0.5)]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Resume
+        </a>
+
+        <!-- Hamburger (mobile only) -->
+        <button id="mobile-menu-btn"
+          class="md:hidden relative flex flex-col justify-center items-center w-10 h-10 rounded-full bg-[var(--glass-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)]/50 transition-colors gap-1.5"
+          aria-label="Toggle menu" aria-expanded="false">
+          <span class="ham-line block w-5 h-0.5 bg-[var(--color-text)] rounded-full transition-all duration-300 origin-center"></span>
+          <span class="ham-line block w-5 h-0.5 bg-[var(--color-text)] rounded-full transition-all duration-300"></span>
+          <span class="ham-line block w-5 h-0.5 bg-[var(--color-text)] rounded-full transition-all duration-300 origin-center"></span>
+        </button>
       </div>
     </nav>
   </div>
-
-  <style>
-    /* subtle transition when scrolled */
-    #header { transition: background-color .18s ease, backdrop-filter .18s ease; }
-    #header.scrolled { background-color: rgba(15, 15, 30, 0.35); }
-  </style>
-
-  <script>
-    (function () {
-      const headerEl = document.getElementById('header');
-      if (!headerEl) return;
-      const onScroll = () => {
-        if (window.scrollY > 40) {
-          headerEl.classList.add('backdrop-blur-sm', 'scrolled');
-        } else {
-          headerEl.classList.remove('backdrop-blur-sm', 'scrolled');
-        }
-      };
-      window.addEventListener('scroll', onScroll);
-      onScroll();
-    })();
-  </script>
 </header>
+
+<!-- Mobile full-screen overlay -->
+<div id="mobile-menu"
+  class="fixed inset-0 z-40 flex flex-col items-center justify-center bg-[var(--color-bg)]/97 backdrop-blur-2xl opacity-0 pointer-events-none transition-opacity duration-300">
+
+  <!-- Nav links -->
+  <nav class="flex flex-col items-center gap-6 sm:gap-8">
+    {navLinks.map((link, i) => (
+      <a href={link.href} data-nav
+        class="mobile-nav-item group flex items-center gap-4 translate-y-6 opacity-0 transition-all duration-400"
+        style={`transition-delay: ${i * 0.07}s`}>
+        <span class="text-xs font-mono text-[var(--color-primary)] opacity-50 w-6 text-right">0{i+1}</span>
+        <span class="mobile-nav-label text-4xl sm:text-5xl font-extrabold text-[var(--color-text-muted)] group-hover:text-white transition-colors duration-200">
+          {link.label}
+        </span>
+      </a>
+    ))}
+
+    <!-- Resume -->
+    <a href={siteConfig.resume} download
+      class="mobile-nav-item mt-6 inline-flex items-center gap-2.5 px-8 py-3.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-white font-bold rounded-xl translate-y-6 opacity-0 transition-all duration-400 text-base hover:shadow-[0_0_30px_rgba(124,58,237,0.4)] hover:-translate-y-0.5"
+      style="transition-delay: 0.28s">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download Resume
+    </a>
+  </nav>
+
+  <!-- Social icons at bottom -->
+  <div class="absolute bottom-10 flex items-center gap-6">
+    {siteConfig.social.github && (
+      <a href={siteConfig.social.github} target="_blank" rel="noopener noreferrer"
+        class="mobile-nav-item p-2.5 rounded-xl border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-white hover:border-[var(--color-primary)]/50 transition-all duration-300 translate-y-4 opacity-0"
+        style="transition-delay: 0.32s">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+        </svg>
+      </a>
+    )}
+    {siteConfig.social.linkedin && (
+      <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer"
+        class="mobile-nav-item p-2.5 rounded-xl border border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-white hover:border-[#0077B5]/50 transition-all duration-300 translate-y-4 opacity-0"
+        style="transition-delay: 0.36s">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+          <rect x="2" y="9" width="4" height="12"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+      </a>
+    )}
+  </div>
+
+  <!-- Ambient glow in overlay -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-[var(--color-primary)] opacity-[0.04] blur-[120px] rounded-full"></div>
+  </div>
+</div>
+
+<style>
+  #header {
+    transition: background-color .18s ease;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /* iOS Safari: force fixed to viewport */
+    -webkit-overflow-scrolling: auto;
+  }
+  #header.scrolled { background-color: transparent; }
+  .nav-link.active { color: white; }
+  .nav-link.active::after {
+    content: '';
+    display: block;
+    width: 4px; height: 4px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    margin: 2px auto 0;
+    box-shadow: 0 0 6px var(--color-primary);
+  }
+  /* Mobile nav active */
+  a[data-nav].active .mobile-nav-label {
+    color: white;
+    text-shadow: 0 0 30px rgba(124,58,237,0.6);
+  }
+  /* Hamburger → X transform */
+  #mobile-menu-btn.open .ham-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  #mobile-menu-btn.open .ham-line:nth-child(2) {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  #mobile-menu-btn.open .ham-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  /* Mobile menu open state */
+  #mobile-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #mobile-menu.open .mobile-nav-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  (function () {
+    const headerEl = document.getElementById('header');
+    if (!headerEl) return;
+
+    // Active nav highlight — scroll-based (reliable for tall sections)
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    const navLinks = document.querySelectorAll<HTMLElement>('[data-nav]');
+    const updateActive = () => {
+      const scrollY = window.scrollY + 120; // offset: navbar height + buffer
+      let current = sections[0]?.id ?? '';
+      for (const section of sections) {
+        if (scrollY >= (section as HTMLElement).offsetTop) {
+          current = section.id;
+        }
+      }
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    };
+
+    // Scroll state
+    const onScroll = () => {
+      headerEl.classList.toggle('scrolled', window.scrollY > 40);
+      updateActive();
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Mobile menu toggle
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+
+    const toggle = (open: boolean) => {
+      btn.classList.toggle('open', open);
+      menu.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      if (open) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.removeProperty('overflow');
+        document.documentElement.style.removeProperty('overflow');
+      }
+    };
+
+    btn.addEventListener('click', () => toggle(!btn.classList.contains('open')));
+
+    // Close on nav link click
+    menu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => toggle(false));
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Escape') toggle(false);
+    });
+  })();
+</script>
