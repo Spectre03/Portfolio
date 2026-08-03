@@ -1,0 +1,200 @@
+---
+---
+<!-- High-End 3D WebGL Cybernetic Grid -->
+<div class="webgl-container">
+  <canvas id="webgl-canvas"></canvas>
+</div>
+
+<style>
+  .webgl-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.55;
+    mix-blend-mode: screen;
+  }
+  #webgl-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>
+
+<script>
+  import * as THREE from 'three';
+
+  // ===== SHADERS: CYBERNETIC WAVE GRID =====
+  const vertexShader = `
+    uniform float uTime;
+    uniform vec2 uMouse;
+    varying vec3 vPosition;
+    varying float vWave;
+
+    void main() {
+      vec3 pos = position;
+      
+      // Calculate dynamic wave heights using overlapping sine/cosine frequencies
+      float waveX = sin(pos.x * 0.9 + uTime * 1.1) * 0.16;
+      float waveY = cos(pos.y * 0.7 + uTime * 0.9) * 0.16;
+      
+      // Add interactive mouse coordinates displacement
+      float dist = distance(pos.xy, uMouse * 3.0);
+      float mouseDisplacement = 0.0;
+      if (dist < 1.8) {
+        mouseDisplacement = (1.8 - dist) * 0.28;
+      }
+
+      pos.z += waveX + waveY + mouseDisplacement;
+      vWave = waveX + waveY + mouseDisplacement;
+      vPosition = pos;
+
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    }
+  `;
+
+  const fragmentShader = `
+    uniform float uTime;
+    uniform vec3 uPrimaryColor;
+    uniform vec3 uAccentColor;
+    varying vec3 vPosition;
+    varying float vWave;
+
+    void main() {
+      // Interpolate colors based on wave heights
+      float factor = vWave * 1.5 + 0.5;
+      vec3 baseColor = mix(uPrimaryColor, uAccentColor, clamp(factor, 0.0, 1.0));
+
+      // Depth fade: make wireframe lines fade into the distance
+      float depthFade = smoothstep(2.5, -2.5, vPosition.y);
+
+      // Add a subtle wave-time shimmer
+      vec3 finalColor = baseColor * (0.6 + sin(uTime * 2.0 + vPosition.x) * 0.4);
+
+      gl_FragColor = vec4(finalColor * depthFade, depthFade * 0.65);
+    }
+  `;
+
+  const canvas = document.getElementById('webgl-canvas');
+  if (canvas) {
+    const parent = canvas.parentElement;
+    if (!parent) throw new Error('WebGL parent container missing');
+
+    const width = parent.clientWidth;
+    const height = parent.clientHeight;
+
+    const scene = new THREE.Scene();
+    
+    // Set up camera
+    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100);
+    camera.position.set(0, -1.8, 3.2);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const uniforms = {
+      uTime: { value: 0.0 },
+      uMouse: { value: new THREE.Vector2(0, 0) },
+      uPrimaryColor: { value: new THREE.Color() },
+      uAccentColor: { value: new THREE.Color() }
+    };
+
+    const updateShaderColors = () => {
+      const primaryStr = getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim() || '#ffffff';
+      const accentStr = getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim() || '#dfc15d';
+      uniforms.uPrimaryColor.value.set(primaryStr);
+      uniforms.uAccentColor.value.set(accentStr);
+    };
+    updateShaderColors();
+    window.addEventListener('yasio-theme-change', updateShaderColors);
+
+    const material = new THREE.ShaderMaterial({
+      vertexShader,
+      fragmentShader,
+      uniforms,
+      transparent: true,
+      wireframe: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending
+    });
+
+    // Create plane grid geometry representing a digital floor landscape
+    const geometry = new THREE.PlaneGeometry(6.5, 6.5, 48, 48);
+    const mesh = new THREE.Mesh(geometry, material);
+    
+    // Rotate and tilt plane to stretch into screen depth
+    mesh.rotation.x = -Math.PI * 0.28;
+    scene.add(mesh);
+
+    // Handle resizing
+    const handleResize = () => {
+      const w = parent.clientWidth;
+      const h = parent.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    };
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    // Smooth Mouse Easing
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      targetX = (e.clientX / window.innerWidth) * 2 - 1;
+      targetY = -(e.clientY / window.innerHeight) * 2 + 1;
+    }, { passive: true });
+
+    const clock = new THREE.Clock();
+    let isVisible = true;
+    let frameId: number;
+
+    const animate = () => {
+      if (!isVisible) return;
+
+      const time = clock.getElapsedTime();
+      material.uniforms.uTime.value = time;
+
+      currentX += (targetX - currentX) * 0.05;
+      currentY += (targetY - currentY) * 0.05;
+      material.uniforms.uMouse.value.set(currentX, currentY);
+
+      // Slow idle rotation of the digital ocean plane
+      mesh.rotation.z = time * 0.02;
+
+      renderer.render(scene, camera);
+      frameId = requestAnimationFrame(animate);
+    };
+
+    // IntersectionObserver to pause loop when scrolled out of view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          clock.start();
+          cancelAnimationFrame(frameId);
+          animate();
+        } else {
+          clock.stop();
+          cancelAnimationFrame(frameId);
+        }
+      });
+    }, { threshold: 0.01 });
+
+    const heroSection = document.getElementById('hero');
+    if (heroSection) {
+      observer.observe(heroSection);
+    } else {
+      animate(); // Fallback if section doesn't exist
+    }
+  }
+</script>

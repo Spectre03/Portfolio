@@ -1,0 +1,507 @@
+---
+import { siteConfig } from "../config";
+const projects = siteConfig.projects;
+
+// Mathematically perfect grid mappings to prevent overlap and create a clean staggering timeline
+const projectConfigs = [
+  { // 0: Crestline
+    layoutClass: "col-span-full md:col-span-6 md:col-start-1 md:mt-0",
+    cardType: "horizontal",
+    aspectRatio: "aspect-[16/10]"
+  },
+  { // 1: Luxedrive
+    layoutClass: "col-span-full md:col-span-5 md:col-start-8 md:mt-48",
+    cardType: "horizontal",
+    aspectRatio: "aspect-[16/10]"
+  },
+  { // 2: Blitz Power
+    layoutClass: "col-span-full md:col-span-4 md:col-start-2 md:mt-12",
+    cardType: "vertical",
+    aspectRatio: "aspect-[3/4]"
+  },
+  { // 3: Ajay The Jeweller
+    layoutClass: "col-span-full md:col-span-6 md:col-start-7 md:mt-12",
+    cardType: "horizontal",
+    aspectRatio: "aspect-[16/10]"
+  },
+  { // 4: Moodflow
+    layoutClass: "col-span-full md:col-span-5 md:col-start-1 md:mt-16",
+    cardType: "horizontal",
+    aspectRatio: "aspect-[16/9]"
+  },
+  { // 5: HR System
+    layoutClass: "col-span-full md:col-span-4 md:col-start-8 md:mt-32",
+    cardType: "vertical",
+    aspectRatio: "aspect-[3/4]"
+  },
+  { // 6: EHR System
+    layoutClass: "col-span-full md:col-span-6 md:col-start-2 md:mt-16",
+    cardType: "horizontal",
+    aspectRatio: "aspect-[16/10]"
+  },
+  { // 7: MERN Analytics
+    layoutClass: "col-span-full md:col-span-6 md:col-start-4 md:mt-16 mx-auto",
+    cardType: "horizontal",
+    aspectRatio: "aspect-[16/10]"
+  }
+];
+---
+
+<section id="projects" class="relative px-5 py-16 sm:px-10 sm:py-20 md:p-16 lg:p-24 bg-[var(--color-bg)] overflow-hidden min-h-screen">
+  
+  <!-- Massive Background Watermarks (yasio style) -->
+  <div class="yasio-watermark top-[15%] left-[5%] select-none pointer-events-none">WEB</div>
+  <div class="yasio-watermark bottom-[25%] right-[5%] select-none pointer-events-none">DEV</div>
+
+  <!-- Central timeline line -->
+  <div class="yasio-timeline"></div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+
+    <!-- Header Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-32">
+      <div class="lg:col-span-6 scroll-slide-left">
+        <span class="text-[var(--color-primary)] font-mono text-sm tracking-widest uppercase mb-3 block">Work /</span>
+        <h2 class="text-4xl sm:text-5xl md:text-6xl font-black text-[var(--color-text)]">
+          Selected Projects
+        </h2>
+        <div class="w-[75px] h-[5px] mt-4 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]"></div>
+      </div>
+      <div class="lg:col-span-6 scroll-fade">
+        <p class="text-lg text-[var(--color-text-muted)] leading-relaxed">
+          Ultra-fast Shopify Hydrogen storefronts, custom APIs, and high-performance full-stack architectures. Rebuilt from the ground up to convert and scale.
+        </p>
+      </div>
+    </div>
+
+    <!-- Staggered Layout Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-x-16 gap-y-24 items-start relative">
+      {projects.map((project, index) => {
+        const config = projectConfigs[index] || { layoutClass: "col-span-full md:col-span-6", cardType: "horizontal", aspectRatio: "aspect-[16/10]" };
+        const accentColor = project.theme?.accent || "var(--color-primary)";
+        const bgGradient = project.theme?.gradient || "from-purple-600 via-fuchsia-500 to-indigo-600";
+        
+        return (
+          <div class={`${config.layoutClass}`}>
+            
+            <!-- Block Reveal Wrapper -->
+            <div class="block-reveal" data-reveal-color="var(--color-accent)">
+              
+              <!-- Cover Block that sweeps left-to-right -->
+              <div class="block-reveal__block" style="background: var(--color-accent)"></div>
+              
+              <!-- Content revealed -->
+              <div class="block-reveal__text">
+                {project.link ? (
+                  <a 
+                    href={project.link} 
+                    class="block group/link project-case-study-trigger" 
+                    data-cursor-text={project.link.startsWith('#') ? "STUDY" : "VIEW"}
+                    data-title={project.name}
+                    data-metric={project.metric}
+                    data-challenge={project.challenge}
+                    data-solution={project.solution}
+                    data-results={project.results}
+                    target={project.link.startsWith('#') ? "_self" : "_blank"}
+                    rel="noopener noreferrer"
+                  >
+                    <div class={`yasio-project-card spotlight-card ${config.cardType}`}>
+                      
+                      <!-- Card visual / Mockup image -->
+                      <div class={`yasio-project-image-wrp ${config.aspectRatio} relative`}>
+                        {project.image ? (
+                          <img 
+                            src={project.image} 
+                            alt={project.name} 
+                            class="yasio-project-image"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : (
+                          <div class={`w-full h-full bg-gradient-to-br ${bgGradient} opacity-30 flex items-center justify-center`}>
+                            <span class="text-white/20 font-mono text-xs">NO_PREVIEW</span>
+                          </div>
+                        )}
+
+                        {project.metric && (
+                          <!-- Outcome Metric Badge -->
+                          <div class="absolute top-4 left-4 z-20 px-2.5 py-1 rounded-md bg-black/70 border border-white/10 backdrop-blur-sm text-[9px] font-mono font-bold text-[var(--color-accent)] tracking-wider uppercase">
+                            {project.metric}
+                          </div>
+                        )}
+                      </div>
+
+                      <!-- Meta layout -->
+                      <div class="yasio-project-meta">
+                        <div class="yasio-project-info">
+                          <h3 class="text-xl sm:text-2xl font-black text-white mb-2 leading-tight group-hover/link:text-[var(--color-primary)] transition-colors duration-300">
+                            {project.name}
+                          </h3>
+                          <p class="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed mb-4 font-medium">
+                            {project.outcome || project.description}
+                          </p>
+                          
+                          <!-- Tags -->
+                          <div class="flex flex-wrap gap-1.5 font-mono">
+                            {project.skills.map((tag) => (
+                              <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5 text-[10px] font-semibold text-white/50">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <!-- Vertical divider line -->
+                        <div class="w-[1px] h-12 bg-white/5 mx-6 hidden sm:block"></div>
+
+                        <!-- Index Number and Arrow -->
+                        <div class="yasio-project-nav">
+                          {String(index).padStart(2, '0')}
+                          <br/>
+                          <span class="arr">→</span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </a>
+                ) : (
+                  <div class={`yasio-project-card spotlight-card cursor-default ${config.cardType}`} data-nda-project data-cursor-text="NDA">
+                    
+                    <!-- Card visual / Mockup image -->
+                    <div class={`yasio-project-image-wrp ${config.aspectRatio}`}>
+                      {project.image ? (
+                        <img 
+                          src={project.image} 
+                          alt={project.name} 
+                          class="yasio-project-image"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      ) : (
+                        <div class={`w-full h-full bg-gradient-to-br ${bgGradient} opacity-30 flex items-center justify-center`}>
+                          <span class="text-white/20 font-mono text-xs">NO_PREVIEW</span>
+                        </div>
+                      )}
+                      
+                      <!-- Private marker -->
+                      <div class="absolute top-4 right-4 z-20 px-3 py-1 rounded-md bg-black/60 border border-white/10 backdrop-blur-sm text-[10px] font-bold text-white/60 tracking-wider uppercase">
+                        NDA Private
+                      </div>
+                    </div>
+
+                    <!-- Meta layout -->
+                    <div class="yasio-project-meta">
+                      <div class="yasio-project-info">
+                        <h3 class="text-xl sm:text-2xl font-black text-white/80 mb-2 leading-tight">
+                          {project.name}
+                        </h3>
+                        <p class="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed mb-4">
+                          {project.description}
+                        </p>
+                        
+                        <!-- Tags -->
+                        <div class="flex flex-wrap gap-1.5 font-mono">
+                          {project.skills.map((tag) => (
+                            <span class="px-2 py-0.5 rounded bg-white/5 border border-white/5 text-[10px] font-semibold text-white/50">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <!-- Vertical divider line -->
+                      <div class="w-[1px] h-12 bg-white/5 mx-6 hidden sm:block"></div>
+
+                      <!-- Index Number and Lock -->
+                      <div class="yasio-project-nav">
+                        {String(index).padStart(2, '0')}
+                        <br/>
+                        <span class="text-[10px] uppercase font-mono tracking-wider text-white/30 font-bold">NDA</span>
+                      </div>
+
+                    </div>
+                  </div>
+                )}
+              </div>
+
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+
+  <!-- Case Study Modal Overlay -->
+  <div id="case-study-modal" class="fixed inset-0 z-[100000] flex items-center justify-center bg-black/95 backdrop-blur-2xl opacity-0 pointer-events-none transition-all duration-300">
+    <div class="w-full max-w-5xl h-[85vh] bg-[#050816] border border-white/10 rounded-2xl overflow-hidden flex flex-col relative mx-4 shadow-2xl scale-95 transition-transform duration-300">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-black/40">
+        <div class="flex items-center gap-3">
+          <h3 id="modal-project-title" class="text-xl sm:text-2xl font-black text-white">Project Case Study</h3>
+          <span id="modal-project-metric" class="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 font-mono text-[10px] font-bold tracking-wider uppercase">--</span>
+        </div>
+        <button id="modal-close-btn" class="w-9 h-9 rounded-full bg-white/5 hover:bg-[var(--color-accent)] text-white/70 hover:text-zinc-950 flex items-center justify-center transition-colors" aria-label="Close Case Study" data-cursor-text="CLOSE">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Content Grid -->
+      <div class="flex-1 overflow-y-auto p-6 sm:p-8 space-y-8 scrollbar-thin">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Left Column: Case Study Narrative (6 cols) -->
+          <div class="lg:col-span-6 space-y-6">
+            <div class="space-y-2">
+              <h4 class="text-xs font-mono text-[var(--color-primary)] uppercase tracking-wider">// The Challenge</h4>
+              <p id="modal-project-challenge" class="text-sm text-[var(--color-text-muted)] leading-relaxed"></p>
+            </div>
+            
+            <div class="space-y-2">
+              <h4 class="text-xs font-mono text-[var(--color-primary)] uppercase tracking-wider">// The Solution</h4>
+              <p id="modal-project-solution" class="text-sm text-[var(--color-text-muted)] leading-relaxed"></p>
+            </div>
+
+            <div class="space-y-2">
+              <h4 class="text-xs font-mono text-[var(--color-primary)] uppercase tracking-wider">// Business Results</h4>
+              <p id="modal-project-results" class="text-sm text-[var(--color-text-muted)] leading-relaxed"></p>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Sandbox or Screenshot (6 cols) -->
+          <div class="lg:col-span-6 space-y-6 lg:border-l lg:border-white/5 lg:pl-8">
+            <div id="modal-sandbox-container" class="space-y-4">
+               <div class="text-center p-6 border border-white/5 bg-black/25 rounded-xl">
+                 <span class="text-xs font-mono text-[var(--color-accent)] uppercase block mb-2">// Active Proof-of-Work Simulator</span>
+                 <p class="text-xs text-[var(--color-text-muted)] mb-4">Click below to activate the live developer console and inspect schema responses.</p>
+                 <button id="activate-sandbox-btn" class="px-5 py-2.5 bg-[var(--color-primary)] hover:bg-[var(--color-accent)] text-[var(--color-btn-text)] text-xs font-bold rounded-lg transition-all shadow-[0_0_15px_rgba(20,184,166,0.35)] hover:shadow-[0_0_20px_rgba(223,193,93,0.5)]">Open Interactive Lab</button>
+               </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // ===== 3D HOVER TILT WITH SPOTLIGHT EFFECT =====
+  const initTilt = () => {
+    const cards = document.querySelectorAll<HTMLElement>('.yasio-project-card');
+    cards.forEach((card) => {
+      let targetX = 0, targetY = 0;
+      let currentX = 0, currentY = 0;
+      let isHovered = false;
+      let rafId: number;
+
+      let rect = card.getBoundingClientRect();
+
+      card.addEventListener('mouseenter', () => {
+        rect = card.getBoundingClientRect();
+        isHovered = true;
+        cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(update);
+      });
+
+      card.addEventListener('mousemove', (e: MouseEvent) => {
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        targetX = (x / (rect.width / 2)) * 6; // Y-rotation max 6 deg
+        targetY = -(y / (rect.height / 2)) * 6; // X-rotation max 6 deg
+        
+        // Spotlight glow position mapping
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      }, { passive: true });
+
+      card.addEventListener('mouseleave', () => {
+        targetX = 0;
+        targetY = 0;
+        isHovered = false;
+      });
+
+      const update = () => {
+        currentX += (targetX - currentX) * 0.08;
+        currentY += (targetY - currentY) * 0.08;
+        card.style.transform = `perspective(800px) rotateY(${currentX}deg) rotateX(${currentY}deg) scale3d(${isHovered ? 1.01 : 1}, ${isHovered ? 1.01 : 1}, 1)`;
+        
+        if (isHovered || Math.abs(currentX) > 0.05 || Math.abs(currentY) > 0.05) {
+          rafId = requestAnimationFrame(update);
+        } else {
+          card.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)';
+        }
+      };
+    });
+  };
+
+  // ===== CASE STUDY MODAL ENGINE =====
+  const initCaseStudyModal = () => {
+    const modal = document.getElementById('case-study-modal');
+    const closeBtn = document.getElementById('modal-close-btn');
+    const activateBtn = document.getElementById('activate-sandbox-btn') as HTMLButtonElement | null;
+    const innerCard = modal?.querySelector('.w-full');
+
+    const mTitle = document.getElementById('modal-project-title');
+    const mMetric = document.getElementById('modal-project-metric');
+    const mChallenge = document.getElementById('modal-project-challenge');
+    const mSolution = document.getElementById('modal-project-solution');
+    const mResults = document.getElementById('modal-project-results');
+
+    if (!modal || !closeBtn) return;
+
+    let activeProjectLink = '';
+
+    const openModal = (e: MouseEvent) => {
+      const trigger = (e.target as HTMLElement).closest('.project-case-study-trigger') as HTMLElement | null;
+      if (!trigger) return;
+
+      const href = trigger.getAttribute('href') ?? '';
+      if (!href.startsWith('#')) return; // Allow normal links to open in external tab
+
+      e.preventDefault();
+      activeProjectLink = href;
+
+      // Extract metadata
+      const title = trigger.getAttribute('data-title') ?? '';
+      const metric = trigger.getAttribute('data-metric') ?? '';
+      const challenge = trigger.getAttribute('data-challenge') ?? '';
+      const solution = trigger.getAttribute('data-solution') ?? '';
+      const results = trigger.getAttribute('data-results') ?? '';
+
+      // Update modal DOM
+      if (mTitle) mTitle.textContent = title;
+      if (mMetric) mMetric.textContent = metric;
+      if (mChallenge) mChallenge.textContent = challenge;
+      if (mSolution) mSolution.textContent = solution;
+      if (mResults) mResults.textContent = results;
+
+      // Display container changes
+      modal.classList.remove('pointer-events-none', 'opacity-0');
+      modal.classList.add('opacity-100');
+      if (innerCard) {
+        innerCard.classList.remove('scale-95');
+        innerCard.classList.add('scale-100');
+      }
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      modal.classList.add('pointer-events-none', 'opacity-0');
+      modal.classList.remove('opacity-100');
+      if (innerCard) {
+        innerCard.classList.add('scale-95');
+        innerCard.classList.remove('scale-100');
+      }
+      document.body.style.removeProperty('overflow');
+    };
+
+    // Event delegation on grid container to capture case study clicks
+    const grid = document.querySelector('#projects .grid');
+    grid?.addEventListener('click', (e) => openModal(e as MouseEvent));
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Close on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Interactive Lab Redirect Trigger
+    if (activateBtn) {
+      activateBtn.addEventListener('click', () => {
+        closeModal();
+        
+        // Scroll to sandbox section
+        const sandboxSec = document.getElementById('playzone');
+        if (sandboxSec) {
+          sandboxSec.scrollIntoView({ behavior: 'smooth' });
+          
+          // Trigger React playground tab toggle programmatically
+          setTimeout(() => {
+            const mode = activeProjectLink.includes('crestline') ? 'shopify' : 'mern';
+            const btnSelector = mode === 'shopify' ? '[data-cursor-text="SHOPIFY"]' : '[data-cursor-text="MERN"]';
+            const tabBtn = document.querySelector(btnSelector) as HTMLButtonElement | null;
+            if (tabBtn) {
+              tabBtn.click();
+              
+              // Glow effect highlight
+              const sandboxContainer = sandboxSec.querySelector('.rounded-3xl');
+              if (sandboxContainer) {
+                sandboxContainer.classList.add('ring-2', 'ring-[var(--color-primary)]', 'shadow-[0_0_50px_rgba(223,193,93,0.4)]');
+                setTimeout(() => {
+                  sandboxContainer.classList.remove('ring-2', 'ring-[var(--color-primary)]', 'shadow-[0_0_50px_rgba(223,193,93,0.4)]');
+                }, 2000);
+              }
+            }
+          }, 800);
+        }
+      });
+    }
+  };
+
+  // ===== NDA PROJECT CLICK HANDLER (Toast Alert) =====
+  const handleNdaClick = (e: MouseEvent) => {
+    const card = (e.target as HTMLElement).closest('[data-nda-project]');
+    if (!card) return;
+    
+    e.preventDefault();
+    
+    // Remove existing toast if present
+    const oldToast = document.getElementById('nda-toast');
+    if (oldToast) oldToast.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'nda-toast';
+    toast.className = 'fixed bottom-8 right-8 z-[10000] px-6 py-4 rounded-2xl border border-white/10 bg-[#0a0d24]/95 backdrop-blur-md shadow-2xl text-[11px] font-mono text-white/80 max-w-sm';
+    toast.style.animation = 'fadeUpIn 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards';
+    
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeUpIn {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeAway {
+        0% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(20px); }
+      }
+    `;
+    toast.appendChild(style);
+
+    toast.innerHTML += `
+      <div class="flex items-center gap-2.5 mb-1.5">
+        <span class="w-2 h-2 rounded-full bg-[var(--color-primary)] animate-pulse"></span>
+        <span class="text-[var(--color-accent)] font-bold uppercase tracking-wider">NDA Protected</span>
+      </div>
+      <p class="leading-relaxed">This storefront was built for a private client. Source code and live environments are covered under confidentiality agreements.</p>
+    `;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.animation = 'fadeAway 0.3s cubic-bezier(0.25, 1, 0.5, 1) forwards';
+      setTimeout(() => toast.remove(), 300);
+    }, 4000);
+  };
+
+  // Run on load
+  initTilt();
+  initCaseStudyModal();
+  
+  document.removeEventListener('click', handleNdaClick);
+  document.addEventListener('click', handleNdaClick);
+
+  document.addEventListener('astro:after-swap', () => {
+    initTilt();
+    initCaseStudyModal();
+  });
+</script>

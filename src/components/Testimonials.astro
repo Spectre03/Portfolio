@@ -1,0 +1,46 @@
+---
+import { siteConfig } from "../config";
+const testimonials = siteConfig.testimonials || [];
+---
+
+<section id="testimonials" class="px-5 py-16 sm:px-10 sm:py-20 md:p-16 lg:p-24 section-alt relative overflow-hidden">
+  <div class="absolute inset-0 hero-grid-bg opacity-[0.04] pointer-events-none select-none"></div>
+
+  <div class="max-w-7xl mx-auto relative z-10">
+    
+    <!-- Header -->
+    <div class="text-center mb-16 scroll-fade">
+      <span class="text-[var(--color-primary)] font-mono text-sm tracking-widest uppercase mb-3 block">Social Proof /</span>
+      <h2 class="text-4xl sm:text-5xl md:text-6xl font-black text-[var(--color-text)]">
+        Client Testimonials
+      </h2>
+      <div class="w-[60px] h-[4px] mx-auto rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mt-4"></div>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 scroll-stagger">
+      {testimonials.map((t) => (
+        <div class="spotlight-card group p-6 sm:p-8 rounded-2xl bg-[var(--glass-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)]/40 hover:shadow-[0_0_40px_rgba(223, 193, 93,0.06)] transition-all duration-300 flex flex-col justify-between cursor-default">
+          <div>
+            <!-- Double quote SVG -->
+            <svg class="text-[var(--color-accent)] opacity-40 mb-6" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 21c3 0 7-1 7-8V5H3v8h4c0 5-4 8-4 8Zm11 0c3 0 7-1 7-8V5h-7v8h4c0 5-4 8-4 8Z"/>
+            </svg>
+            <p class="text-base sm:text-lg text-[var(--color-text)] leading-relaxed italic mb-8">
+              "{t.quote}"
+            </p>
+          </div>
+          
+          <div class="flex items-center gap-4 border-t border-white/5 pt-4">
+            <img class="w-12 h-12 rounded-full object-cover border border-white/10" src={t.avatar} alt={t.author} loading="lazy" />
+            <div>
+              <div class="font-bold text-white text-sm sm:text-base">{t.author}</div>
+              <div class="text-xs text-[var(--color-text-muted)] mt-0.5">{t.role}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

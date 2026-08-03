@@ -48,8 +48,9 @@ const r2 = [...row2, ...row2];
               alt=""
               width="14"
               height="14"
-              class="w-3.5 h-3.5 object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-              loading="eager"
+              class="w-3.5 h-3.5 object-contain tech-logo-img transition-all duration-300"
+              loading="lazy"
+              decoding="async"
               onerror="this.parentElement.innerHTML='<span style=\'width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6\'></span>'"
             />
           </span>
@@ -69,8 +70,9 @@ const r2 = [...row2, ...row2];
               alt=""
               width="14"
               height="14"
-              class="w-3.5 h-3.5 object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-              loading="eager"
+              class="w-3.5 h-3.5 object-contain tech-logo-img transition-all duration-300"
+              loading="lazy"
+              decoding="async"
               onerror="this.parentElement.innerHTML='<span style=\'width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6\'></span>'"
             />
           </span>
@@ -81,3 +83,21 @@ const r2 = [...row2, ...row2];
 
   </div>
 </div>
+
+<style>
+  /* Keep brand logos at original colors, with soft opacity hover transitions */
+  .tech-logo-img {
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+  }
+  
+  span.group:hover .tech-logo-img {
+    opacity: 1;
+  }
+
+  /* Soft gold boundary highlight */
+  span.group:hover {
+    border-color: var(--color-accent) !important;
+    box-shadow: 0 0 12px rgba(223, 193, 93, 0.12) !important;
+  }
+</style>

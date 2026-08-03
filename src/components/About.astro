@@ -10,8 +10,8 @@ const quickFacts = [
 ];
 ---
 
-<section id="about" class="p-8 sm:p-12 md:p-16 lg:p-24 section-alt">
-  <div class="max-w-7xl mx-auto">
+<section id="about" class="px-5 py-16 sm:px-10 sm:py-20 md:p-16 lg:p-24 section-alt">
+  <div class="max-w-7xl mx-auto relative z-10">
 
     <!-- Header -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-end mb-16">
@@ -36,7 +36,7 @@ const quickFacts = [
         <!-- Quick-fact 2×2 grid -->
         <div class="grid grid-cols-2 gap-4 scroll-stagger" id="about-facts">
           {quickFacts.map((fact) => (
-            <div class="tilt-card spotlight-card group p-5 rounded-2xl bg-[var(--glass-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)]/60 hover:shadow-[0_0_30px_rgba(124,58,237,0.12)] transition-all duration-300 cursor-default">
+            <div class="tilt-card spotlight-card group p-5 rounded-2xl bg-[var(--glass-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)]/60 hover:shadow-[0_0_30px_rgba(223, 193, 93,0.12)] transition-all duration-300 cursor-default">
               <div class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mb-1 fact-value"
                 data-target={fact.value}>
                 {fact.value}
@@ -84,7 +84,7 @@ const quickFacts = [
             </p>
             <div class="flex flex-wrap gap-2">
               {(skills as string[]).map((skill) => (
-                <span class="skill-pill px-3 py-1.5 rounded-lg text-sm font-medium text-[var(--color-text)] bg-[var(--glass-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] hover:shadow-[0_0_10px_rgba(124,58,237,0.2)] transition-all duration-250 cursor-default">
+                <span class="skill-pill px-3 py-1.5 rounded-lg text-sm font-medium text-[var(--color-text)] bg-[var(--glass-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] hover:shadow-[0_0_10px_rgba(223, 193, 93,0.2)] transition-all duration-250 cursor-default">
                   {skill}
                 </span>
               ))}
@@ -122,16 +122,57 @@ const quickFacts = [
     obs.observe(factsGrid);
   }
 
-  // Tilt on quick-fact cards
+  // High-performance spring-lerped 3D tilt on quick-fact cards
   document.querySelectorAll<HTMLElement>('#about .tilt-card').forEach(card => {
-    card.addEventListener('mousemove', (e: MouseEvent) => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width  - 0.5;
-      const y = (e.clientY - r.top)  / r.height - 0.5;
-      card.style.transform = `perspective(600px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale(1.03)`;
+    let currentX = 0, currentY = 0;
+    let targetX = 0, targetY = 0;
+    let currentScale = 1, targetScale = 1;
+    let isHovered = false;
+    let rafId: number;
+
+    const lerp = (start: number, end: number, amt: number) => (1 - amt) * start + amt * end;
+
+    const animate = () => {
+      currentX = lerp(currentX, targetX, 0.12);
+      currentY = lerp(currentY, targetY, 0.12);
+      currentScale = lerp(currentScale, targetScale, 0.12);
+
+      card.style.transform = `perspective(600px) rotateX(${currentY}deg) rotateY(${currentX}deg) scale(${currentScale})`;
+
+      if (
+        isHovered || 
+        Math.abs(targetX - currentX) > 0.01 || 
+        Math.abs(targetY - currentY) > 0.01 ||
+        Math.abs(targetScale - currentScale) > 0.001
+      ) {
+        rafId = requestAnimationFrame(animate);
+      } else {
+        card.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
+      }
+    };
+
+    let r = card.getBoundingClientRect();
+    
+    card.addEventListener('mouseenter', () => {
+      r = card.getBoundingClientRect();
+      targetScale = 1.03;
+      isHovered = true;
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(animate);
     });
+
+    card.addEventListener('mousemove', (e: MouseEvent) => {
+      targetX = ((e.clientX - r.left) / r.width - 0.5) * 12; // max Y-rotation: 12deg
+      targetY = -((e.clientY - r.top) / r.height - 0.5) * 12; // max X-rotation: 12deg
+    });
+
     card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(600px) rotateY(0) rotateX(0) scale(1)';
+      targetX = 0;
+      targetY = 0;
+      targetScale = 1;
+      isHovered = false;
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(animate);
     });
   });
 </script>

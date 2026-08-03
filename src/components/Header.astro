@@ -2,10 +2,11 @@
 import { siteConfig } from "../config";
 
 const navLinks = [
-  { label: "About",      href: "#about"      },
-  { label: "Projects",   href: "#projects"   },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact",    href: "#contact"    },
+  { label: "About",        href: "#about"      },
+  { label: "Engineering",  href: "#services"   },
+  { label: "Case Studies", href: "#projects"   },
+  { label: "Playzone",     href: "#playzone"   },
+  { label: "Contact",      href: "#contact"    },
 ];
 ---
 
@@ -14,7 +15,7 @@ const navLinks = [
     <nav class="flex items-center justify-between glass rounded-full py-2 px-4 md:px-6">
 
       <!-- Logo -->
-      <a href="#hero" class="text-lg font-bold text-white hover:text-[var(--color-accent)] transition-colors">
+      <a href="#hero" class="text-lg font-bold text-white hover:text-[var(--color-accent)] transition-colors" data-cursor-text="HOME">
         {siteConfig.name.split(" ")[0]}<span class="text-[var(--color-primary)]">.</span>
       </a>
 
@@ -22,7 +23,7 @@ const navLinks = [
       <ul class="hidden md:flex items-center gap-6">
         {navLinks.map(link => (
           <li>
-            <a href={link.href} data-nav
+            <a href={link.href} data-nav data-cursor-text="GO"
               class="nav-link text-[var(--color-text-muted)] hover:text-white transition-colors text-sm font-medium">
               {link.label}
             </a>
@@ -31,9 +32,28 @@ const navLinks = [
       </ul>
 
       <div class="flex items-center gap-3">
+        <!-- Live Shopify Headless Cart Status -->
+        <a href="#playzone" id="header-shopify-cart" data-cursor-text="GO TO CART"
+          class="flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-mono font-bold text-white/50 border border-white/10 bg-[var(--glass-bg)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/50 transition-all duration-300">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+          </svg>
+          <span id="shopify-cart-count" class="flex items-center justify-center w-4 h-4 rounded-full text-[8.5px] bg-white/10 text-white font-bold transition-all duration-300">0</span>
+        </a>
+
+        <!-- Theme switcher widget -->
+        <button id="theme-cycle-btn" aria-label="Cycle Theme" data-cursor-text="SWITCH"
+          class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-[var(--glass-bg)] border border-[var(--color-border)] hover:border-[var(--color-accent)]/50 text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-all duration-300 relative group mr-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:rotate-12 transition-transform duration-300">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 14.7255 3.09032 17.1962 4.85857 19C5.35626 19.5 5.35626 20.5 4.85857 21C4.36087 21.5 3.36549 21.5 2.8678 21C1.09955 19.1962 0 16.7255 0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C11.5 24 11 23.5 11 23C11 22.5 11.5 22 12 22Z"/>
+          </svg>
+          <span class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[var(--color-accent)]"></span>
+        </button>
+
         <!-- Desktop resume button -->
-        <a href={siteConfig.resume} download
-          class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold text-white bg-[var(--color-primary)] hover:bg-[var(--color-accent)] transition-all duration-300 shadow-[0_0_15px_rgba(124,58,237,0.4)] hover:shadow-[0_0_20px_rgba(6,182,212,0.5)]">
+        <a href={siteConfig.resume} download data-cursor-text="GET CV"
+          class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold text-[var(--color-btn-text)] bg-[var(--color-primary)] hover:bg-[var(--color-accent)] transition-all duration-300 shadow-[0_0_15px_rgba(20,184,166,0.35)] hover:shadow-[0_0_20px_rgba(223,193,93,0.5)]">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="7 10 12 15 17 10"/>
@@ -43,7 +63,7 @@ const navLinks = [
         </a>
 
         <!-- Hamburger (mobile only) -->
-        <button id="mobile-menu-btn"
+        <button id="mobile-menu-btn" data-cursor-text="MENU"
           class="md:hidden relative flex flex-col justify-center items-center w-10 h-10 rounded-full bg-[var(--glass-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)]/50 transition-colors gap-1.5"
           aria-label="Toggle menu" aria-expanded="false">
           <span class="ham-line block w-5 h-0.5 bg-[var(--color-text)] rounded-full transition-all duration-300 origin-center"></span>
@@ -74,7 +94,7 @@ const navLinks = [
 
     <!-- Resume -->
     <a href={siteConfig.resume} download
-      class="mobile-nav-item mt-6 inline-flex items-center gap-2.5 px-8 py-3.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-white font-bold rounded-xl translate-y-6 opacity-0 transition-all duration-400 text-base hover:shadow-[0_0_30px_rgba(124,58,237,0.4)] hover:-translate-y-0.5"
+      class="mobile-nav-item mt-6 inline-flex items-center gap-2.5 px-8 py-3.5 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-[var(--color-btn-text)] font-bold rounded-xl translate-y-6 opacity-0 transition-all duration-400 text-base hover:shadow-[0_0_30px_rgba(223,193,93,0.4)] hover:-translate-y-0.5"
       style="transition-delay: 0.28s">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -139,7 +159,7 @@ const navLinks = [
   /* Mobile nav active */
   a[data-nav].active .mobile-nav-label {
     color: white;
-    text-shadow: 0 0 30px rgba(124,58,237,0.6);
+    text-shadow: 0 0 30px rgba(223, 193, 93,0.6);
   }
   /* Hamburger → X transform */
   #mobile-menu-btn.open .ham-line:nth-child(1) {
@@ -169,18 +189,32 @@ const navLinks = [
     if (!headerEl) return;
 
     // Active nav highlight — scroll-based (reliable for tall sections)
-    const sections = Array.from(document.querySelectorAll('section[id]'));
-    const navLinks = document.querySelectorAll<HTMLElement>('[data-nav]');
+    const sections = Array.from(document.querySelectorAll('section[id]')).map(el => ({
+      id: el.id,
+      element: el as HTMLElement,
+      offsetTop: (el as HTMLElement).offsetTop
+    }));
+
+    window.addEventListener('resize', () => {
+      sections.forEach(sec => {
+        sec.offsetTop = sec.element.offsetTop;
+      });
+    }, { passive: true });
+
+    const navLinks = document.querySelectorAll('[data-nav]');
     const updateActive = () => {
       const scrollY = window.scrollY + 120; // offset: navbar height + buffer
       let current = sections[0]?.id ?? '';
       for (const section of sections) {
-        if (scrollY >= (section as HTMLElement).offsetTop) {
+        if (scrollY >= section.offsetTop) {
           current = section.id;
         }
       }
       navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        const isActive = link.getAttribute('href') === '#' + current;
+        if (link.classList.contains('active') !== isActive) {
+          link.classList.toggle('active', isActive);
+        }
       });
     };
 
@@ -220,5 +254,62 @@ const navLinks = [
     document.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.key === 'Escape') toggle(false);
     });
+
+    // ===== LIVE SHOPIFY HEADLESS STATE SYNC =====
+    (function () {
+      const cartCountEl = document.getElementById('shopify-cart-count');
+      const cartContainer = document.getElementById('header-shopify-cart');
+      if (!cartCountEl || !cartContainer) return;
+
+      window.addEventListener('shopify-cart-update', (e: any) => {
+        const count = e.detail?.count ?? 0;
+        cartCountEl.textContent = String(count);
+        
+        if (count > 0) {
+          cartContainer.classList.add('text-[var(--color-primary)]', 'border-[var(--color-primary)]/40', 'shadow-[0_0_15px_rgba(223,193,93,0.35)]');
+          cartCountEl.classList.remove('bg-white/10', 'text-white');
+          cartCountEl.classList.add('bg-[var(--color-accent)]', 'text-zinc-950');
+          
+          cartCountEl.classList.add('scale-125');
+          setTimeout(() => {
+            cartCountEl.classList.remove('scale-125');
+          }, 300);
+        } else {
+          cartContainer.classList.remove('text-[var(--color-primary)]', 'border-[var(--color-primary)]/40', 'shadow-[0_0_15px_rgba(223,193,93,0.35)]');
+          cartCountEl.classList.add('bg-white/10', 'text-white');
+          cartCountEl.classList.remove('bg-[var(--color-accent)]', 'text-zinc-950');
+        }
+      });
+    })();
+
+    // ===== DYNAMIC MULTI-THEME ENGINE =====
+    (function () {
+      const themes = ['gold', 'cyber-teal', 'royal-indigo', 'neon-violet'];
+      const cycleBtn = document.getElementById('theme-cycle-btn');
+      if (!cycleBtn) return;
+
+      // Load initial theme from localStorage
+      let currentTheme = localStorage.getItem('yasio-portfolio-theme') || 'gold';
+      if (currentTheme !== 'gold') {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+      }
+
+      cycleBtn.addEventListener('click', () => {
+        let index = themes.indexOf(currentTheme);
+        index = (index + 1) % themes.length;
+        currentTheme = themes[index];
+
+        if (currentTheme === 'gold') {
+          document.documentElement.removeAttribute('data-theme');
+        } else {
+          document.documentElement.setAttribute('data-theme', currentTheme);
+        }
+
+        localStorage.setItem('yasio-portfolio-theme', currentTheme);
+        
+        // Dispatch custom theme change event for Three.js canvas components
+        window.dispatchEvent(new CustomEvent('yasio-theme-change', { detail: { theme: currentTheme } }));
+      });
+    })();
   })();
 </script>

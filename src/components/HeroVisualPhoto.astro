@@ -1,0 +1,53 @@
+---
+---
+<!-- High-End Profile Photo Container -->
+<div class="photo-container">
+  <!-- Profile Photo -->
+  <img
+    src="/obaid.jpeg"
+    alt="Obaidullah Arshad"
+    class="profile-photo"
+    loading="eager"
+    decoding="async"
+  />
+
+  <!-- Available badge -->
+  <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full border border-green-500/30 bg-[var(--glass-bg)] backdrop-blur-md whitespace-nowrap pointer-events-none">
+    <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse flex-shrink-0"></span>
+    <span class="text-[10px] font-semibold text-green-400">Open to work</span>
+  </div>
+</div>
+
+<style>
+  .photo-container {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--color-border);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  @media (min-width: 768px) {
+    .photo-container {
+      width: 240px;
+      height: 240px;
+    }
+  }
+  .photo-container:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 20px 45px rgba(223, 193, 93, 0.15);
+  }
+  .profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 50%;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .photo-container:hover .profile-photo {
+    transform: scale(1.05);
+  }
+</style>

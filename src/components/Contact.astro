@@ -59,7 +59,7 @@ import { siteConfig } from "../config";
                 name="name"
                 required
                 placeholder="Your name"
-                class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)]/40 text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)] transition-all duration-200"
+                class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)]/40 text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(223, 193, 93,0.15)] transition-all duration-200"
               />
             </div>
             <div>
@@ -71,7 +71,7 @@ import { siteConfig } from "../config";
                 name="email"
                 required
                 placeholder="you@company.com"
-                class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)]/40 text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)] transition-all duration-200"
+                class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)]/40 text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(223, 193, 93,0.15)] transition-all duration-200"
               />
             </div>
           </div>
@@ -83,7 +83,7 @@ import { siteConfig } from "../config";
             </label>
             <select
               name="project_type"
-              class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)] transition-all duration-200 appearance-none cursor-pointer"
+              class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(223, 193, 93,0.15)] transition-all duration-200 appearance-none cursor-pointer"
             >
               <option value="" class="bg-[#0d1226]">Select a project type...</option>
               <option value="Shopify Hydrogen Storefront" class="bg-[#0d1226]">Shopify Hydrogen Storefront</option>
@@ -104,7 +104,7 @@ import { siteConfig } from "../config";
               required
               rows="5"
               placeholder="Tell me about your project, what it does, where you're at, and what you need..."
-              class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)]/40 text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.15)] transition-all duration-200 resize-none leading-relaxed"
+              class="contact-input w-full px-4 py-3 rounded-xl bg-[var(--glass-bg)] border border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)]/40 text-sm focus:outline-none focus:border-[var(--color-primary)] focus:shadow-[0_0_0_3px_rgba(223, 193, 93,0.15)] transition-all duration-200 resize-none leading-relaxed"
             ></textarea>
           </div>
 
@@ -112,7 +112,7 @@ import { siteConfig } from "../config";
           <button
             type="submit"
             id="submit-btn"
-            class="w-full flex items-center justify-center gap-2.5 px-8 py-4 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-white font-bold rounded-xl hover:shadow-[0_0_40px_rgba(124,58,237,0.45)] hover:-translate-y-0.5 transition-all duration-300 text-base disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+            class="w-full flex items-center justify-center gap-2.5 px-8 py-4 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] text-[var(--color-btn-text)] font-bold rounded-xl hover:shadow-[0_0_40px_rgba(223, 193, 93,0.45)] hover:-translate-y-0.5 transition-all duration-300 text-base disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
           >
             <span id="btn-text">Send Message</span>
             <!-- Arrow icon -->
@@ -147,7 +147,7 @@ import { siteConfig } from "../config";
 
           <!-- Profile -->
           <div class="flex items-center gap-3 mb-6">
-            <img src="/obaid.jpeg" alt="Obaidullah Arshad" class="w-12 h-12 rounded-xl object-cover border-2 border-[var(--color-primary)]/30" />
+            <img src="/obaid.jpeg" alt="Obaidullah Arshad" class="w-12 h-12 rounded-xl object-cover border-2 border-[var(--color-primary)]/30" loading="lazy" decoding="async" />
             <div>
               <p class="font-bold text-[var(--color-text)] text-sm">{siteConfig.name}</p>
               <p class="text-xs text-[var(--color-text-muted)]">Islamabad, Pakistan · UTC+5</p>
@@ -173,20 +173,20 @@ import { siteConfig } from "../config";
 
           <div class="border-t border-[var(--color-border)] pt-5 space-y-2.5">
             {siteConfig.social.linkedin && (
-              <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer"
+              <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" data-cursor-text="LINKEDIN"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[#0077B5] hover:text-white text-[var(--color-text-muted)] transition-all duration-300 text-sm font-medium group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="group-hover:text-[#0077B5] transition-colors"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
                 Connect on LinkedIn
               </a>
             )}
             {siteConfig.social.github && (
-              <a href={siteConfig.social.github} target="_blank" rel="noopener noreferrer"
+              <a href={siteConfig.social.github} target="_blank" rel="noopener noreferrer" data-cursor-text="GITHUB"
                 class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:text-white text-[var(--color-text-muted)] transition-all duration-300 text-sm font-medium group">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="group-hover:text-[var(--color-primary)] transition-colors"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
                 View GitHub
               </a>
             )}
-            <a href={siteConfig.resume} download
+            <a href={siteConfig.resume} download data-cursor-text="RESUME"
               class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-accent)] hover:text-white text-[var(--color-text-muted)] transition-all duration-300 text-sm font-medium group">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="group-hover:text-[var(--color-accent)] transition-colors"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Download Resume
@@ -218,14 +218,14 @@ import { siteConfig } from "../config";
   const COOLDOWN_MS = 10 * 60 * 1000; // 10 minutes
   const LS_KEY = 'portfolio_last_submit';
 
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
-  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('submit-btn');
   const btnText = document.getElementById('btn-text');
   const btnArrow = document.getElementById('btn-arrow');
   const btnSpinner = document.getElementById('btn-spinner');
   const successMsg = document.getElementById('form-success');
   const errorMsg = document.getElementById('form-error');
-  const accessKeyField = document.getElementById('access-key-field') as HTMLInputElement | null;
+  const accessKeyField = document.getElementById('access-key-field');
 
   // Inject access key from data attribute (keeps it out of static HTML)
   if (form && accessKeyField) {

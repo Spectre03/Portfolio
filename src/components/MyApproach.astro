@@ -170,7 +170,7 @@ const phases = [
     // content
     content.forEach((c, ci) => { c.style.display = ci === i ? '' : 'none'; });
     // images
-    imgs.forEach((img, ii) => { (img as HTMLImageElement).style.opacity = ii === i ? '1' : '0'; });
+    imgs.forEach((img, ii) => { img.style.opacity = ii === i ? '1' : '0'; });
     // bars
     bars.forEach((b, bi) => { b.style.transform = bi === i ? 'scaleX(1)' : 'scaleX(0)'; b.style.background = bi === i ? phases[bi].color : ''; });
     // url
@@ -192,7 +192,7 @@ const phases = [
     cursor: pointer;
   }
   .phase-tab:hover {
-    border-color: rgba(124,58,237,0.3);
+    border-color: rgba(223, 193, 93,0.3);
     color: var(--color-text);
   }
 </style>

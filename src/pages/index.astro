@@ -3,7 +3,8 @@ import Header from "../components/Header.astro";
 import HeroNew from "../components/HeroNew.astro";
 import Services from "../components/Services.astro";
 import About from "../components/About.astro";
-import Projects from "../components/Projects.astro";
+import StaggeredProjects from "../components/StaggeredProjects.astro";
+import DevShop from "../components/DevShop.tsx";
 import Experience from "../components/Experience.astro";
 import Education from "../components/Education.astro";
 import Certifications from "../components/Certifications.astro";
@@ -11,6 +12,8 @@ import MyApproach from "../components/MyApproach.astro";
 import Marquee from "../components/Marquee.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
+import Testimonials from "../components/Testimonials.astro";
+import AntigravityBackground from "../components/AntigravityBackground";
 import { siteConfig } from "../config";
 import "../styles/global.css";
 
@@ -20,6 +23,16 @@ const ogImage = "/obaid.jpeg";
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <script is:inline>
+      (function() {
+        try {
+          const theme = localStorage.getItem('yasio-portfolio-theme');
+          if (theme && theme !== 'gold') {
+            document.documentElement.setAttribute('data-theme', theme);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
@@ -46,9 +59,10 @@ const ogImage = "/obaid.jpeg";
     <meta name="twitter:description" content={siteConfig.description} />
     <meta name="twitter:image" content={`${siteConfig.siteUrl}${ogImage}`} />
 
-    <!-- Fonts -->
+    <!-- Fonts and Asset CDNs -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.simpleicons.org" />
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
       rel="stylesheet"
@@ -67,382 +81,159 @@ const ogImage = "/obaid.jpeg";
     </style>
   </head>
   <body>
+    <!-- ═══ CREATIVE TERMINAL BOOTLOADER (Vault Door Style) ═══ -->
+    <div id="systems-bootloader" class="fixed inset-0 z-[9999] pointer-events-none">
+      <!-- Top Half Panel -->
+      <div id="boot-panel-top" class="absolute inset-x-0 top-0 h-1/2 bg-[#02040b] flex flex-col justify-between p-8 sm:p-12 md:p-16 border-b border-white/5 font-mono overflow-hidden pointer-events-auto transition-transform duration-[850ms] ease-[cubic-bezier(0.76,0,0.24,1)]">
+        <!-- Top header -->
+        <div class="flex items-center justify-between text-[10px] text-white/30 uppercase tracking-widest">
+          <span>sys_build: v2.4.0</span>
+          <span>utc_local: 2026-07-18</span>
+        </div>
 
-    <!-- Masks the 24px gap above the floating fixed header so content doesn't bleed through -->
-    <div aria-hidden="true" style="position:fixed;top:0;left:0;right:0;height:28px;background:linear-gradient(to bottom,#070921 55%,transparent 100%);z-index:51;pointer-events:none;"></div>
+        <!-- Typing -->
+        <div class="max-w-xl mx-auto w-full flex flex-col justify-end h-full pb-4">
+          <div class="flex items-baseline gap-2 mb-4">
+            <span class="text-2xl text-[var(--color-primary)] font-bold">//</span>
+            <span id="boot-typing" class="text-lg sm:text-xl text-white font-bold tracking-tight"></span>
+            <span class="w-2 h-4 bg-[var(--color-accent)] animate-pulse inline-block" style="vertical-align: middle;"></span>
+          </div>
 
-    <!-- ═══════════════════════════════════════
-         SITE INTRO — dramatic curtain reveal
-    ═══════════════════════════════════════ -->
-    <div id="site-intro">
-      <div id="intro-panel-top"></div>
-      <div id="intro-panel-bot"></div>
-      <div id="intro-glow-orb"></div>
-      <div id="intro-seam"></div>
-      <div id="intro-flash"></div>
-      <div id="intro-stage">
-        <div id="intro-eyebrow">— Welcome —</div>
-        <div id="intro-name" aria-label="Obaidullah Arshad">&#8203;</div>
-        <div id="intro-line"></div>
-        <div id="intro-sub">Full Stack Developer &amp; Builder</div>
+          <!-- Terminal log panel -->
+          <div id="boot-terminal" class="w-full bg-[#050816]/60 border border-white/5 rounded-xl p-4 sm:p-5 h-[120px] overflow-y-auto text-[10px] sm:text-[11px] text-white/50 space-y-1.5 scrollbar-thin">
+          </div>
+        </div>
       </div>
-      <span id="intro-skip">tap to skip</span>
+
+      <!-- Bottom Half Panel -->
+      <div id="boot-panel-bottom" class="absolute inset-x-0 bottom-0 h-1/2 bg-[#02040b] flex flex-col justify-between p-8 sm:p-12 md:p-16 font-mono overflow-hidden pointer-events-auto transition-transform duration-[850ms] ease-[cubic-bezier(0.76,0,0.24,1)]">
+        <!-- Progress -->
+        <div class="max-w-xl mx-auto w-full flex flex-col justify-start h-full pt-4">
+          <!-- Counter Progress panel -->
+          <div class="w-full flex items-center justify-between text-[10px] text-[var(--color-accent)] uppercase tracking-wider mb-2">
+            <span>mounting workspace clusters...</span>
+            <span id="boot-percentage" class="font-bold">00%</span>
+          </div>
+
+          <!-- Progress bar -->
+          <div class="w-full h-[1px] bg-white/5 relative overflow-hidden rounded-full">
+            <div id="boot-progress-bar" class="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] w-0 transition-all duration-75"></div>
+          </div>
+        </div>
+
+        <!-- Bottom metadata -->
+        <div class="flex flex-wrap items-center justify-between text-[9px] text-white/20 uppercase tracking-wider gap-4">
+          <span>© 2026 OBAIDULLAH ARSHAD // ALL RIGHTS RESERVED</span>
+          <span>LATENCY: HYDRATED EDGE CACHE 1.08ms</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Global backdrop auroras -->
+    <div class="global-aurora-bg">
+      <div class="global-aurora-blob aurora-1"></div>
+      <div class="global-aurora-blob aurora-2"></div>
+      <div class="global-aurora-blob aurora-3"></div>
+      <div class="global-aurora-blob aurora-4"></div>
     </div>
 
     <style>
-      #site-intro {
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        overflow: hidden;
-        cursor: pointer;
+      body.loaded #boot-panel-top {
+        transform: translateY(-100%);
       }
-
-      /* ── Curtain panels ── */
-      #intro-panel-top,
-      #intro-panel-bot {
-        position: absolute;
-        left: 0; right: 0;
-        height: 51%;
-        background: #030714;
-        will-change: transform;
+      body.loaded #boot-panel-bottom {
+        transform: translateY(100%);
       }
-      #intro-panel-top {
-        top: 0;
-        background-image:
-          linear-gradient(rgba(124,58,237,0.07) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(124,58,237,0.07) 1px, transparent 1px),
-          radial-gradient(ellipse 80% 60% at 50% 100%, rgba(124,58,237,0.12) 0%, transparent 70%),
-          linear-gradient(#030714, #070921);
-        background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%;
-      }
-      #intro-panel-bot {
-        bottom: 0;
-        background-image:
-          linear-gradient(rgba(124,58,237,0.07) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(124,58,237,0.07) 1px, transparent 1px),
-          radial-gradient(ellipse 80% 60% at 50% 0%, rgba(6,182,212,0.10) 0%, transparent 70%),
-          linear-gradient(#070921, #030714);
-        background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%;
-      }
-
-      /* ── Central breathing glow ── */
-      #intro-glow-orb {
-        position: absolute;
-        width: 700px; height: 700px;
-        border-radius: 50%;
-        left: 50%; top: 50%;
-        transform: translate(-50%, -50%);
-        background: radial-gradient(circle,
-          rgba(124,58,237,0.18) 0%,
-          rgba(6,182,212,0.07) 40%,
-          transparent 68%
-        );
-        z-index: 2;
-        animation: orb-breathe 2.4s ease-in-out infinite;
+      body.loaded #systems-bootloader {
         pointer-events: none;
-      }
-      @keyframes orb-breathe {
-        0%, 100% { transform: translate(-50%,-50%) scale(0.88); opacity: 0.7; }
-        50%       { transform: translate(-50%,-50%) scale(1.12); opacity: 1;   }
-      }
-
-      /* ── Seam line ── */
-      #intro-seam {
-        position: absolute;
-        left: 0; right: 0;
-        top: 50%;
-        height: 1px;
-        transform: translateY(-0.5px);
-        z-index: 6;
-        background: linear-gradient(90deg,
-          transparent 0%,
-          rgba(124,58,237,0.95) 20%,
-          rgba(6,182,212,1) 50%,
-          rgba(124,58,237,0.95) 80%,
-          transparent 100%
-        );
-        box-shadow:
-          0 0 8px  rgba(124,58,237,0.9),
-          0 0 24px rgba(124,58,237,0.6),
-          0 0 60px rgba(6,182,212,0.4),
-          0 0 120px rgba(124,58,237,0.2);
-        animation: seam-pulse 2s ease-in-out infinite;
-        transition: opacity 0.12s ease, box-shadow 0.12s ease;
-      }
-      #site-intro.flash-exit #intro-seam {
-        box-shadow:
-          0 0 20px  rgba(255,255,255,0.9),
-          0 0 80px  rgba(124,58,237,1),
-          0 0 200px rgba(6,182,212,0.8);
-        background: linear-gradient(90deg, transparent, white 30%, white 70%, transparent);
-      }
-      #site-intro.exit #intro-seam { opacity: 0; }
-      @keyframes seam-pulse {
-        0%,100% { opacity: 0.75; }
-        50%     { opacity: 1; }
-      }
-
-      /* ── Flash overlay ── */
-      #intro-flash {
-        position: absolute;
-        inset: 0;
-        background: white;
-        opacity: 0;
-        z-index: 15;
-        pointer-events: none;
-        transition: opacity 0.08s ease;
-      }
-      #site-intro.flash-exit #intro-flash { opacity: 0.25; }
-
-      /* ── Stage ── */
-      #intro-stage {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-        z-index: 10;
-        pointer-events: none;
-      }
-
-      /* Eyebrow */
-      #intro-eyebrow {
-        font-size: clamp(0.65rem, 1.8vw, 0.8rem);
-        font-family: monospace;
-        letter-spacing: 0.22em;
-        color: rgba(167,139,250,0.7);
-        text-transform: uppercase;
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      /* Name */
-      #intro-name {
-        font-size: clamp(2.2rem, 9vw, 6.5rem);
-        font-weight: 900;
-        letter-spacing: -0.03em;
-        line-height: 1;
-        text-align: center;
-        padding: 0 1rem;
-        background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 35%, #06b6d4 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        filter: drop-shadow(0 0 60px rgba(124,58,237,0.6)) drop-shadow(0 0 20px rgba(6,182,212,0.3));
-        min-height: 1.1em;
-      }
-
-      /* Gradient bar */
-      #intro-line {
-        height: 2px;
-        width: 0;
-        border-radius: 99px;
-        background: linear-gradient(90deg, #7c3aed, #06b6d4, #7c3aed);
-        background-size: 200% 100%;
-        box-shadow: 0 0 20px rgba(124,58,237,0.7), 0 0 40px rgba(6,182,212,0.4);
-        animation: bar-shimmer 2s linear infinite;
-      }
-      @keyframes bar-shimmer {
-        0%   { background-position: 0% 0%; }
-        100% { background-position: 200% 0%; }
-      }
-
-      /* Subtitle */
-      #intro-sub {
-        font-size: clamp(0.68rem, 2vw, 0.9rem);
-        font-weight: 500;
-        color: rgba(152,160,180,0.8);
-        letter-spacing: 0.1em;
-        text-align: center;
-        padding: 0 1.5rem;
-        opacity: 0;
-        transform: translateY(6px);
-      }
-
-      /* Skip */
-      #intro-skip {
-        position: absolute;
-        bottom: 24px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 0.6rem;
-        color: rgba(152,160,180,0.25);
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        z-index: 20;
-        pointer-events: none;
-        font-family: monospace;
-        white-space: nowrap;
       }
     </style>
 
     <script>
-      (function () {
-        var intro    = document.getElementById('site-intro');
-        var nameEl   = document.getElementById('intro-name');
-        var lineEl   = document.getElementById('intro-line');
-        var subEl    = document.getElementById('intro-sub');
-        var eyebrow  = document.getElementById('intro-eyebrow');
-        var panelTop = document.getElementById('intro-panel-top');
-        var panelBot = document.getElementById('intro-panel-bot');
-        var seamEl   = document.getElementById('intro-seam');
-        var flashEl  = document.getElementById('intro-flash');
-        var stageEl  = document.getElementById('intro-stage');
-        if (!intro || !nameEl) return;
+      (function() {
+        const typingText = document.getElementById('boot-typing');
+        const progressText = document.getElementById('boot-percentage');
+        const progressBar = document.getElementById('boot-progress-bar');
+        const terminalLog = document.getElementById('boot-terminal');
 
-        document.body.style.overflow = 'hidden';
+        const logs = [
+          "[sys] establishing oxygen edge worker clusters...",
+          "[sys] warming storefront cdn endpoints... done",
+          "[sys] mapping mern controllers & rest routes... active",
+          "[sys] established shopify api nodes connection (1.08ms)",
+          "[sys] established mongodb atlas cluster sync (20ms latency)",
+          "[sys] cached: 24 storefront layout modules loaded",
+          "[sys] active state: systems check 100% green",
+          "[sys] initialization complete. booting interface..."
+        ];
 
-        /* ── Easing helpers ── */
-        function easeOut3(p) { return 1 - Math.pow(1 - p, 3); }
-        function easeIn3(p)  { return p * p * p; }
-
-        /* Animate a single numeric property from a→b over duration ms */
-        function tween(duration, onUpdate, onDone) {
-          var start = null;
-          function step(ts) {
-            if (!start) start = ts;
-            var p = Math.min((ts - start) / duration, 1);
-            onUpdate(p);
-            if (p < 1) requestAnimationFrame(step);
-            else if (onDone) onDone();
-          }
-          requestAnimationFrame(step);
-        }
-
-        /* ── Show eyebrow: fade + slide up ── */
-        function showEyebrow() {
-          tween(450, function(p) {
-            var e = easeOut3(p);
-            eyebrow.style.opacity = String(e);
-            eyebrow.style.transform = 'translateY(' + (8 * (1 - e)) + 'px)';
-          });
-        }
-
-        /* ── Text scramble for name (time-based, not frame-count-based) ── */
-        var FINAL = 'Obaidullah Arshad';
-        var CHARS = '!<>_\\/[]{}=+*^?#@~ABCDEFabcdef0123456789';
-        var SCRAMBLE_DURATION = 1100; /* ms — same wall-clock time on any refresh rate */
-        var scrambleStart = null;
-        var scrambleDone = false;
-        var scrambleRaf = 0;
-
-        function scrambleTick(ts) {
-          if (!scrambleStart) scrambleStart = ts;
-          var p = Math.min((ts - scrambleStart) / SCRAMBLE_DURATION, 1);
-          var resolved = Math.floor(p * FINAL.length);
-          nameEl.textContent = FINAL.split('').map(function(ch, i) {
-            if (ch === ' ') return ' ';
-            if (i < resolved) return ch;
-            return CHARS[Math.floor(Math.random() * CHARS.length)];
-          }).join('');
-          if (p < 1) {
-            scrambleRaf = requestAnimationFrame(scrambleTick);
-          } else {
-            nameEl.textContent = FINAL;
-            scrambleDone = true;
-            /* after scramble: grow bar, fade sub, then auto-exit */
-            setTimeout(showLine, 100);
-            setTimeout(showSub,  380);
-            setTimeout(exit, 2000); /* auto-exit 2s after name resolves */
+        let progress = 0;
+        let logIdx = 0;
+        
+        // Typing header animation
+        const headerStr = "obaidullah_arshad.init()";
+        let charIdx = 0;
+        function typeHeader() {
+          if (!typingText) return;
+          if (charIdx < headerStr.length) {
+            typingText.textContent += headerStr[charIdx];
+            charIdx++;
+            setTimeout(typeHeader, 45);
           }
         }
+        typeHeader();
 
-        /* ── Grow the gradient bar ── */
-        var maxLineW = Math.min(320, window.innerWidth * 0.65);
-        function showLine() {
-          tween(600, function(p) {
-            lineEl.style.width = (maxLineW * easeOut3(p)) + 'px';
-          });
-        }
+        const progressInterval = setInterval(() => {
+          progress += Math.floor(Math.random() * 3) + 1;
+          if (progress > 100) progress = 100;
+          
+          if (progressText) progressText.textContent = `${String(progress).padStart(2, '0')}%`;
+          if (progressBar) progressBar.style.width = `${progress}%`;
 
-        /* ── Fade + slide sub text ── */
-        function showSub() {
-          tween(450, function(p) {
-            var e = easeOut3(p);
-            subEl.style.opacity = String(e);
-            subEl.style.transform = 'translateY(' + (6 * (1 - e)) + 'px)';
-          });
-        }
-
-        /* ── Fade out stage ── */
-        function fadeStage(onDone) {
-          var startOp = parseFloat(stageEl.style.opacity) || 1;
-          tween(280, function(p) {
-            stageEl.style.opacity = String(startOp * (1 - p));
-          }, onDone);
-        }
-
-        /* ── Slam panels out ── */
-        function slamPanels() {
-          tween(520, function(p) {
-            var e = easeIn3(p);
-            if (panelTop) panelTop.style.transform = 'translateY(' + (-102 * e) + '%)';
-            if (panelBot) panelBot.style.transform = 'translateY(' + ( 102 * e) + '%)';
-            if (seamEl)   seamEl.style.opacity      = String(1 - p);
-          }, function() {
-            intro.style.display = 'none';
-          });
-        }
-
-        /* ── Full exit sequence ── */
-        var done = false;
-        function exit() {
-          if (done) return;
-          done = true;
-          cancelAnimationFrame(scrambleRaf);
-          /* Always show completed name even if exit was triggered mid-scramble */
-          nameEl.textContent = FINAL;
-          document.body.style.removeProperty('overflow');
-          document.documentElement.style.removeProperty('overflow');
-
-          /* flash */
-          if (flashEl) {
-            flashEl.style.opacity = '0.3';
-            setTimeout(function() { flashEl.style.opacity = '0'; }, 120);
-          }
-          if (seamEl) {
-            seamEl.style.background = 'linear-gradient(90deg,transparent,white 30%,white 70%,transparent)';
-            seamEl.style.boxShadow  = '0 0 20px #fff,0 0 80px #7c3aed,0 0 200px #06b6d4';
+          // Append logs at specific progress thresholds
+          const targetLogCount = Math.floor((progress / 100) * logs.length);
+          while (logIdx < targetLogCount && logIdx < logs.length) {
+            if (terminalLog) {
+              const p = document.createElement('div');
+              p.className = 'opacity-0 translate-y-1 transition-all duration-300';
+              p.innerHTML = `<span class="text-[var(--color-primary)] font-bold">>></span> ${logs[logIdx]}`;
+              terminalLog.appendChild(p);
+              
+              // Force layout trigger & animate entry
+              p.offsetHeight;
+              p.classList.remove('opacity-0', 'translate-y-1');
+              terminalLog.scrollTop = terminalLog.scrollHeight;
+            }
+            logIdx++;
           }
 
-          fadeStage(function() {
-            setTimeout(slamPanels, 60);
-          });
-        }
-
-        /* Click to skip — ignore first 900ms to avoid spurious page-load events */
-        var startTime = Date.now();
-        intro.addEventListener('click', function() {
-          if (Date.now() - startTime < 900) return;
-          exit();
-        });
-        /* Escape to skip — added after 900ms, only Escape key */
-        setTimeout(function() {
-          document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') exit();
-          }, { once: true });
-        }, 900);
-
-        /* ── Kick off sequence ── */
-        setTimeout(showEyebrow, 150);
-        /* Pass RAF timestamp to scrambleTick so it's time-based */
-        setTimeout(function() { scrambleRaf = requestAnimationFrame(scrambleTick); }, 430);
-        /* Safety fallback — exits if scramble never completes for some reason */
-        setTimeout(exit, 6000);
+          if (progress >= 100) {
+            clearInterval(progressInterval);
+            setTimeout(() => {
+              document.body.classList.add('loaded');
+              setTimeout(() => {
+                const bootloader = document.getElementById('systems-bootloader');
+                if (bootloader) bootloader.style.display = 'none';
+              }, 900);
+            }, 400);
+          }
+        }, 30);
       })();
     </script>
+    <!-- ═════════════════════════ -->
 
-    <!-- Custom cursor -->
-    <div id="cursor"></div>
-    <div id="cursor-outline"></div>
+    <!-- Masks the 24px gap above the floating fixed header so content doesn't bleed through -->
+    <div aria-hidden="true" style="position:fixed;top:0;left:0;right:0;height:28px;background:linear-gradient(to bottom,#02030b 60%,transparent 100%);z-index:51;pointer-events:none;"></div>
 
-    <!-- Mouse tracking glow -->
-    <div id="mouse-glow"></div>
+
     <!-- Scroll glow -->
     <div id="scroll-glow"></div>
+
+    <!-- Dynamic Antigravity Particle Field Background (very subtle, dynamic colors, active throughout the site) -->
+    <div id="antigravity-bg-container" class="fixed inset-0 z-[1] pointer-events-none mix-blend-screen active">
+      <AntigravityBackground client:only="react" />
+    </div>
+
     <!-- Scroll progress bar -->
     <div id="scroll-progress"></div>
 
@@ -477,7 +268,50 @@ const ogImage = "/obaid.jpeg";
       <Marquee />
       <Services />
       <About />
-      <Projects />
+      <StaggeredProjects />
+      <Testimonials />
+      
+      <!-- Shopify Headless Storefront GraphQL Sandbox -->
+      <section id="playzone" class="p-8 sm:p-12 md:p-16 lg:p-24 section-alt relative overflow-hidden">
+        <!-- Visual background details (blueprint grid and glowing ambient light bubbles) -->
+        <div class="absolute inset-0 hero-grid-bg opacity-[0.08] pointer-events-none select-none"></div>
+        <div class="absolute top-[10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[var(--color-primary)] opacity-[0.08] blur-[140px] pointer-events-none select-none animate-gentle-pulse"></div>
+        <div class="absolute bottom-[10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[var(--color-accent)] opacity-[0.08] blur-[140px] pointer-events-none select-none animate-float"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+          <div class="text-center mb-16 scroll-fade">
+            <span class="text-[var(--color-primary)] font-mono text-sm tracking-widest uppercase mb-3 block">Developer Sandbox /</span>
+            <h2 class="text-4xl sm:text-5xl md:text-6xl font-black text-[var(--color-text)] mb-4">
+              GraphQL Storefront Playzone
+            </h2>
+            <div class="w-[60px] h-[4px] mx-auto rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)] mb-5"></div>
+            <p class="text-[var(--color-text-muted)] max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+              Query live storefront products and generate active checkout sessions directly on Shopify Oxygen edge nodes using Storefront API mutations.
+            </p>
+          </div>
+          
+          <!-- Sandbox Intro Panel (default view) -->
+          <div id="sandbox-intro-card" class="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-md p-8 text-center max-w-2xl mx-auto space-y-6 scroll-scale">
+            <div class="inline-flex p-3 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/>
+              </svg>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-black text-white">Interactive Sandbox Console</h3>
+            <p class="text-sm text-[var(--color-text-muted)] leading-relaxed">
+              Inspect dynamic GraphQL query mutations and database CRUD records. Built for technical reviewers and system architects.
+            </p>
+            <button id="activate-sandbox-direct-btn" class="px-6 py-3 bg-[var(--color-primary)] hover:bg-[var(--color-accent)] text-[var(--color-btn-text)] text-sm font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(20,184,166,0.35)]" data-cursor-text="LAUNCH">
+              Launch Developer Console Lab
+            </button>
+          </div>
+
+          <!-- Hidden active sandbox -->
+          <div id="sandbox-wrapper" class="hidden opacity-0 transition-opacity duration-500">
+            <DevShop client:load />
+          </div>
+        </div>
+      </section>
       <Experience />
       <Education />
       <Certifications />
@@ -487,6 +321,50 @@ const ogImage = "/obaid.jpeg";
 
     <Footer />
 
+    <!-- Fixed Telemetry Overlay Widget -->
+    <button id="telemetry-toggle" class="fixed bottom-8 left-8 z-40 flex items-center gap-2 px-3 py-2 rounded-full font-mono text-[9px] font-bold text-white/50 border border-white/10 bg-[#050816]/70 backdrop-blur-md hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/50 transition-all duration-300" aria-label="Toggle Telemetry Panel" data-cursor-text="SYS DATA">
+      <span class="relative flex h-1.5 w-1.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400"></span>
+      </span>
+      SYS_MONITOR
+    </button>
+
+    <!-- Telemetry HUD Panel -->
+    <div id="telemetry-panel" class="fixed bottom-24 left-8 z-40 w-[240px] font-mono text-[10px] text-white/60 bg-black/90 backdrop-blur-lg border border-white/10 rounded-xl p-4 transition-all duration-300 transform scale-90 translate-y-4 opacity-0 pointer-events-none">
+      <div class="flex items-center justify-between border-b border-white/10 pb-2 mb-3">
+        <span class="font-bold text-[var(--color-primary)]">SYSTEM TELEMETRY</span>
+        <span class="text-[8px] bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-bold uppercase">sys_ok</span>
+      </div>
+      
+      <div class="space-y-2">
+        <div class="flex justify-between">
+          <span>RENDER ENGINE:</span>
+          <span class="text-white font-bold">VITE / ASTRO</span>
+        </div>
+        <div class="flex justify-between">
+          <span>FPS PERFORMANCE:</span>
+          <span id="tel-fps" class="text-emerald-400 font-bold">-- FPS</span>
+        </div>
+        <div class="flex justify-between">
+          <span>DOM FOOTPRINT:</span>
+          <span id="tel-dom" class="text-white font-bold">-- NODES</span>
+        </div>
+        <div class="flex justify-between">
+          <span>JS HEAP USAGE:</span>
+          <span id="tel-mem" class="text-white font-bold">-- MB</span>
+        </div>
+        <div class="flex justify-between">
+          <span>LOAD LATENCY:</span>
+          <span id="tel-load" class="text-white font-bold">-- MS</span>
+        </div>
+        <div class="flex justify-between">
+          <span>CLIENT HYDRATION:</span>
+          <span class="text-[var(--color-accent)] font-bold">REACT READY</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Back to top button -->
     <button id="back-to-top" aria-label="Back to top">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -494,245 +372,172 @@ const ogImage = "/obaid.jpeg";
       </svg>
     </button>
 
+    <style>
+      #vfx-canvas {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 9990;
+      }
+      
+      /* Lenis smooth scrolling base styles */
+      html.lenis {
+        height: auto;
+      }
+      .lenis.lenis-smooth {
+        scroll-behavior: auto;
+      }
+      .lenis.lenis-smooth [data-lenis-prevent] {
+        overscroll-behavior: contain;
+      }
+      .lenis.lenis-stopped {
+        overflow: hidden;
+      }
+      .lenis.lenis-scrolling iframe {
+        pointer-events: none;
+      }
+    </style>
+
     <script>
-      // ===== SCROLL PROGRESS BAR =====
+      import Lenis from '@studio-freight/lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      });
+
+      lenis.on('scroll', ScrollTrigger.update);
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 500);
+
+      // ===== OPT-IN SANDBOX ACTIVATION =====
       (function () {
-        const progressBar = document.getElementById('scroll-progress');
-        if (!progressBar) return;
-        const update = () => {
-          const h = document.documentElement.scrollHeight - window.innerHeight;
-          progressBar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+        const intro = document.getElementById('sandbox-intro-card');
+        const wrapper = document.getElementById('sandbox-wrapper');
+        const launchBtn = document.getElementById('activate-sandbox-direct-btn');
+        if (!intro || !wrapper || !launchBtn) return;
+
+        const activateSandbox = () => {
+          intro.classList.add('hidden');
+          wrapper.classList.remove('hidden');
+          setTimeout(() => {
+            wrapper.classList.add('opacity-100');
+            ScrollTrigger.refresh();
+          }, 50);
         };
-        window.addEventListener('scroll', update, { passive: true });
-        update();
+
+        launchBtn.addEventListener('click', activateSandbox);
       })();
 
-      // ===== MOUSE TRACKING GLOW =====
-      (function () {
-        const glow = document.getElementById('mouse-glow');
-        if (!glow) return;
-        let timeout: ReturnType<typeof setTimeout> | null = null;
-        window.addEventListener('mousemove', (e: MouseEvent) => {
-          glow.style.left = (e.clientX - 200) + 'px';
-          glow.style.top = (e.clientY - 200) + 'px';
-          glow.classList.add('active');
-          if (timeout) clearTimeout(timeout);
-          timeout = setTimeout(() => glow.classList.remove('active'), 2500);
-        }, { passive: true });
-        document.addEventListener('mouseleave', () => glow.classList.remove('active'), { passive: true });
-      })();
 
       // ===== SCROLL GLOW =====
       (function () {
         const sg = document.getElementById('scroll-glow');
         if (!sg) return;
         sg.classList.add('active');
+
+        let scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        window.addEventListener('resize', () => {
+          scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        });
+
         const update = () => {
-          const h = document.documentElement.scrollHeight - window.innerHeight;
-          const p = h > 0 ? window.scrollY / h : 0;
+          const p = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
           sg.style.opacity = String(Math.min(0.5, 0.06 + p * 0.7).toFixed(3));
           sg.style.backgroundPosition = `50% ${Math.min(60, p * 120)}%`;
-          sg.style.top = (window.scrollY * 0.35) + 'px';
+          sg.style.transform = `translate3d(0, ${window.scrollY * 0.35}px, 0)`;
         };
         update();
         window.addEventListener('scroll', update, { passive: true });
         window.addEventListener('resize', update);
       })();
 
-      // ===== INTERSECTION OBSERVER ANIMATIONS =====
+      // ===== NATIVE INTERSECTION OBSERVER FOR SCROLL REVEALS =====
       (function () {
-        const isMobile = window.innerWidth < 768;
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            entry.target.classList.toggle('visible', entry.isIntersecting);
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              obs.unobserve(e.target); // Trigger once
+            }
           });
-        }, { threshold: [0, 0.05], rootMargin: isMobile ? '0px 0px -20px 0px' : '0px 0px -60px 0px' });
+        }, {
+          rootMargin: '0px 0px -8% 0px', // Trigger slightly before entering viewport
+          threshold: 0.04
+        });
 
-        document.querySelectorAll('.scroll-fade, .scroll-slide-left, .scroll-slide-right, .scroll-scale, .scroll-stagger, .accent-bar, .clip-reveal')
-          .forEach((el) => observer.observe(el));
-      })();
-
-      // ===== TAP RIPPLE (mobile touch only — Web Animations API for reliability) =====
-      (function () {
-        document.addEventListener('touchstart', (e: TouchEvent) => {
-          const touch = e.touches[0];
-          if (!touch) return;
-          const ripple = document.createElement('div');
-          ripple.style.cssText = [
-            'position:fixed',
-            `left:${touch.clientX}px`,
-            `top:${touch.clientY}px`,
-            'width:10px',
-            'height:10px',
-            'border-radius:50%',
-            'pointer-events:none',
-            'z-index:9999',
-            'background:radial-gradient(circle,rgba(124,58,237,0.9) 0%,rgba(6,182,212,0.5) 60%,transparent 100%)',
-            'box-shadow:0 0 16px rgba(124,58,237,0.8)',
-          ].join(';');
-          document.body.appendChild(ripple);
-          const anim = ripple.animate([
-            { transform: 'translate(-50%,-50%) scale(0)', opacity: 1 },
-            { transform: 'translate(-50%,-50%) scale(16)', opacity: 0 },
-          ], { duration: 550, easing: 'cubic-bezier(0,0,0.2,1)', fill: 'forwards' });
-          anim.onfinish = () => ripple.remove();
-        }, { passive: true });
-      })();
-
-      // ===== CURSOR TRAIL =====
-      (function () {
-        if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
-        const TRAIL_COUNT = 10;
-        const dots: HTMLElement[] = [];
-        let mx = -200, my = -200;
-        const positions: {x: number; y: number}[] = Array.from({length: TRAIL_COUNT}, () => ({x: -200, y: -200}));
-
-        for (let i = 0; i < TRAIL_COUNT; i++) {
-          const d = document.createElement('div');
-          d.className = 'cursor-trail-dot';
-          const scale = 1 - i * 0.07;
-          const opacity = 1 - i * 0.09;
-          d.style.cssText = `width:${6 * scale}px;height:${6 * scale}px;opacity:${opacity};transition:opacity 0.1s ease;`;
-          document.body.appendChild(d);
-          dots.push(d);
-        }
-
-        window.addEventListener('mousemove', (e: MouseEvent) => { mx = e.clientX; my = e.clientY; }, { passive: true });
-
-        const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-        let frame = 0;
-        const tick = () => {
-          positions[0].x = lerp(positions[0].x, mx, 0.35);
-          positions[0].y = lerp(positions[0].y, my, 0.35);
-          for (let i = 1; i < TRAIL_COUNT; i++) {
-            positions[i].x = lerp(positions[i].x, positions[i-1].x, 0.5);
-            positions[i].y = lerp(positions[i].y, positions[i-1].y, 0.5);
+        // Query all elements configured with CSS scroll reveals
+        const targets = document.querySelectorAll(
+          '.scroll-fade, .scroll-slide-left, .scroll-slide-right, .scroll-scale, .scroll-stagger, .clip-reveal, .accent-bar, .block-reveal'
+        );
+        targets.forEach(t => {
+          // Temporarily hide elements via JS before they are observed to avoid flash of visible content.
+          // The CSS handles the fallback if JS is disabled.
+          if (!t.classList.contains('scroll-stagger') && !t.classList.contains('block-reveal')) {
+            t.style.opacity = '0';
           }
-          for (let i = 0; i < TRAIL_COUNT; i++) {
-            dots[i].style.left = positions[i].x + 'px';
-            dots[i].style.top  = positions[i].y + 'px';
-          }
-          // Alternate colors purple/cyan
-          if (frame % 3 === 0) {
-            const color = Math.random() > 0.5 ? '#7c3aed' : '#06b6d4';
-            dots[0].style.background = color;
-            dots[0].style.boxShadow = `0 0 8px ${color}`;
-          }
-          frame++;
-          requestAnimationFrame(tick);
-        };
-        tick();
-
-        document.addEventListener('mouseleave', () => dots.forEach(d => d.style.opacity = '0'));
-        document.addEventListener('mouseenter', () => {
-          dots.forEach((d, i) => d.style.opacity = String(1 - i * 0.09));
+          obs.observe(t);
         });
       })();
 
-      // ===== CUSTOM CURSOR =====
-      (function () {
-        const cursor = document.getElementById('cursor');
-        const outline = document.getElementById('cursor-outline');
-        if (!cursor || !outline) return;
 
-        let mx = -100, my = -100;
-        let ox = -100, oy = -100;
-        let raf: number;
 
-        window.addEventListener('mousemove', (e: MouseEvent) => {
-          mx = e.clientX; my = e.clientY;
-          cursor.style.left = mx + 'px';
-          cursor.style.top  = my + 'px';
-        }, { passive: true });
-
-        const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-        const tick = () => {
-          ox = lerp(ox, mx, 0.12);
-          oy = lerp(oy, my, 0.12);
-          outline.style.left = ox + 'px';
-          outline.style.top  = oy + 'px';
-          raf = requestAnimationFrame(tick);
-        };
-        tick();
-
-        // Hover state on interactive elements
-        const hoverEls = document.querySelectorAll('a, button, [data-nav], .tilt-card, input, textarea, select');
-        hoverEls.forEach(el => {
-          el.addEventListener('mouseenter', () => {
-            cursor.classList.add('hovering');
-            outline.classList.add('hovering');
-          });
-          el.addEventListener('mouseleave', () => {
-            cursor.classList.remove('hovering');
-            outline.classList.remove('hovering');
-          });
-        });
-
-        window.addEventListener('mousedown', () => {
-          cursor.classList.add('clicking');
-          outline.classList.add('clicking');
-        });
-        window.addEventListener('mouseup', () => {
-          cursor.classList.remove('clicking');
-          outline.classList.remove('clicking');
-        });
-
-        document.addEventListener('mouseleave', () => {
-          cursor.style.opacity = '0';
-          outline.style.opacity = '0';
-        });
-        document.addEventListener('mouseenter', () => {
-          cursor.style.opacity = '1';
-          outline.style.opacity = '1';
-        });
-      })();
-
-      // ===== HERO NAME WORD REVEAL (word-safe) =====
-      (function () {
-        if (window.innerWidth < 768) return;
-        const nameEl = document.getElementById('hero-name');
-        if (!nameEl) return;
-        const words = (nameEl.textContent ?? '').trim().split(' ');
-        nameEl.style.opacity = '1';
-        nameEl.innerHTML = words.map((word, wi) => {
-          const chars = word.split('').map((ch, ci) => {
-            const delay = 0.12 + (wi * word.length + ci) * 0.04;
-            return `<span class="char-reveal" style="animation-delay:${delay}s">${ch}</span>`;
-          }).join('');
-          return `<span style="display:inline-block;white-space:nowrap">${chars}</span>`;
-        }).join('<span style="display:inline-block;min-width:0.3em"> </span>');
-      })();
 
       // ===== MAGNETIC BUTTONS =====
       (function () {
-        document.querySelectorAll<HTMLElement>('.magnetic').forEach(btn => {
-          btn.addEventListener('mousemove', (e: MouseEvent) => {
-            const r = btn.getBoundingClientRect();
-            const x = (e.clientX - r.left - r.width  / 2) * 0.35;
-            const y = (e.clientY - r.top  - r.height / 2) * 0.35;
-            btn.style.transform = `translate(${x}px, ${y}px)`;
+        document.querySelectorAll('.magnetic').forEach(btn => {
+          let r = btn.getBoundingClientRect();
+          btn.addEventListener('mouseenter', () => {
+            r = btn.getBoundingClientRect();
+          });
+          btn.addEventListener('mousemove', (e) => {
+            const x = ((e as MouseEvent).clientX - r.left - r.width  / 2) * 0.35;
+            const y = ((e as MouseEvent).clientY - r.top  - r.height / 2) * 0.35;
+            (btn as HTMLElement).style.transform = `translate3d(${x}px, ${y}px, 0)`;
           });
           btn.addEventListener('mouseleave', () => {
-            btn.style.transform = '';
+            (btn as HTMLElement).style.transform = '';
           });
         });
       })();
 
-      // ===== FLOATING SIDEBARS (fade in after 1.4s) =====
+      // ===== FLOATING SIDEBARS (fade in immediately) =====
       (function () {
         setTimeout(() => {
           document.getElementById('sidebar-left')?.classList.add('visible');
           document.getElementById('sidebar-right')?.classList.add('visible');
-        }, 1400);
+        }, 100);
       })();
 
       // ===== BACK TO TOP =====
       (function () {
         const btn = document.getElementById('back-to-top');
         if (!btn) return;
-        window.addEventListener('scroll', () => {
-          btn.classList.toggle('visible', window.scrollY > 400);
-        }, { passive: true });
+        let visible = false;
+        const agBg = document.getElementById('antigravity-bg-container');
+        const updateScrollStates = () => {
+          const isOverLimit = (window.scrollY || document.documentElement.scrollTop) > 400;
+          if (isOverLimit !== visible) {
+            visible = isOverLimit;
+            btn.classList.toggle('visible', visible);
+          }
+        };
+        window.addEventListener('scroll', updateScrollStates, { passive: true });
+        updateScrollStates(); // Run immediately on mount
         btn.addEventListener('click', () => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -741,7 +546,7 @@ const ogImage = "/obaid.jpeg";
       // ===== TEXT SCRAMBLE ON SECTION H2 =====
       (function () {
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
-        function scramble(el: HTMLElement) {
+        function scramble(el) {
           const original = el.dataset.original ?? el.textContent ?? '';
           if (!el.dataset.original) el.dataset.original = original;
           let frame = 0;
@@ -763,14 +568,110 @@ const ogImage = "/obaid.jpeg";
         const obs = new IntersectionObserver((entries) => {
           entries.forEach(e => {
             if (e.isIntersecting) {
-              scramble(e.target as HTMLElement);
+              scramble(e.target);
               obs.unobserve(e.target);
             }
           });
         }, { threshold: 0.5 });
 
-        document.querySelectorAll<HTMLElement>('section h2').forEach(h2 => obs.observe(h2));
+        document.querySelectorAll('section h2').forEach(h2 => obs.observe(h2));
       })();
     </script>
+
+    <!-- System Telemetry Script -->
+    <script>
+      (function () {
+        const toggle = document.getElementById('telemetry-toggle');
+        const panel = document.getElementById('telemetry-panel');
+        if (!toggle || !panel) return;
+
+        toggle.addEventListener('click', () => {
+          const isClosed = panel.classList.contains('pointer-events-none');
+          if (isClosed) {
+            panel.classList.remove('pointer-events-none', 'opacity-0', 'scale-90', 'translate-y-4');
+            panel.classList.add('opacity-100', 'scale-100', 'translate-y-0');
+            toggle.classList.add('text-[var(--color-primary)]', 'border-[var(--color-primary)]/40', 'bg-[var(--color-primary)]/[0.04]', 'shadow-[0_0_15px_rgba(223,193,93,0.25)]');
+          } else {
+            panel.classList.add('pointer-events-none', 'opacity-0', 'scale-90', 'translate-y-4');
+            panel.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
+            toggle.classList.remove('text-[var(--color-primary)]', 'border-[var(--color-primary)]/40', 'bg-[var(--color-primary)]/[0.04]', 'shadow-[0_0_15px_rgba(223,193,93,0.25)]');
+          }
+        });
+
+        // 1. DOM counter
+        const domEl = document.getElementById('tel-dom');
+        if (domEl) {
+          const updateDOM = () => {
+            domEl.textContent = String(document.getElementsByTagName('*').length);
+          };
+          updateDOM();
+          setInterval(updateDOM, 4000);
+        }
+
+        // 2. Load latency
+        const loadEl = document.getElementById('tel-load');
+        if (loadEl) {
+          const getLoadTime = () => {
+            const [navigation] = performance.getEntriesByType('navigation') as any[];
+            if (navigation) {
+              loadEl.textContent = `${Math.round(navigation.duration)}ms`;
+            } else if (performance.timing) {
+              const t = performance.timing;
+              const duration = t.loadEventEnd - t.navigationStart;
+              loadEl.textContent = `${Math.max(0, duration)}ms`;
+            }
+          };
+          
+          if (document.readyState === 'complete') {
+            getLoadTime();
+          } else {
+            window.addEventListener('load', () => setTimeout(getLoadTime, 100));
+          }
+        }
+
+        // 3. Memory usage
+        const memEl = document.getElementById('tel-mem');
+        if (memEl) {
+          const updateMem = () => {
+            const perf = window.performance as any;
+            if (perf && perf.memory) {
+              memEl.textContent = `${Math.round(perf.memory.usedJSHeapSize / 1048576)}MB`;
+            } else {
+              memEl.textContent = 'N/A';
+            }
+          };
+          updateMem();
+          setInterval(updateMem, 5000);
+        }
+
+        // 4. FPS Performance
+        const fpsEl = document.getElementById('tel-fps');
+        if (fpsEl) {
+          let frames = 0;
+          let lastTime = performance.now();
+          function fpsTick() {
+            frames++;
+            const now = performance.now();
+            if (now >= lastTime + 1000) {
+              const fps = Math.round((frames * 1000) / (now - lastTime));
+              fpsEl.textContent = `${fps} FPS`;
+              
+              if (fps >= 55) {
+                fpsEl.className = 'text-emerald-400 font-bold';
+              } else if (fps >= 40) {
+                fpsEl.className = 'text-amber-400 font-bold';
+              } else {
+                fpsEl.className = 'text-rose-400 font-bold';
+              }
+              frames = 0;
+              lastTime = now;
+            }
+            requestAnimationFrame(fpsTick);
+          }
+          requestAnimationFrame(fpsTick);
+        }
+      })();
+    </script>
+
   </body>
 </html>

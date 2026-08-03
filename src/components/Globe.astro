@@ -25,26 +25,26 @@
 <script>
   import createGlobe from 'cobe';
 
-  const canvas = document.getElementById('globe-canvas') as HTMLCanvasElement | null;
-  const wrapper = document.getElementById('globe-wrapper') as HTMLElement | null;
+  const canvas = document.getElementById('globe-canvas');
+  const wrapper = document.getElementById('globe-wrapper');
   if (!canvas || !wrapper) { console.warn('Globe: canvas or wrapper not found'); } else {
 
   const DPR = Math.min(window.devicePixelRatio || 1, 2);
 
   // Size from viewport — never relies on DOM layout being complete
-  function calcSize(): number {
+  function calcSize() {
     const vw = window.innerWidth;
     if (vw >= 1024) return Math.min(Math.floor(vw * 0.38), 500);
     if (vw >= 640)  return Math.min(Math.floor(vw * 0.55), 460);
     return Math.min(Math.floor(vw * 0.85), 360);
   }
 
-  function setCanvasSize(size: number) {
-    canvas!.width  = Math.round(size * DPR);
-    canvas!.height = Math.round(size * DPR);
-    canvas!.style.width  = size + 'px';
-    canvas!.style.height = size + 'px';
-    wrapper!.style.minHeight = (size + 40) + 'px'; // +40 for location pill
+  function setCanvasSize(size) {
+    canvas.width  = Math.round(size * DPR);
+    canvas.height = Math.round(size * DPR);
+    canvas.style.width  = size + 'px';
+    canvas.style.height = size + 'px';
+    wrapper.style.minHeight = (size + 40) + 'px'; // +40 for location pill
   }
 
   let size = calcSize();
@@ -79,11 +79,11 @@
       { location: [-33.8688,151.2093], size: 0.04 }, // Sydney
       { location: [37.7749,-122.4194], size: 0.05 }, // San Francisco
     ],
-    onRender(state: Record<string, unknown>) {
+    onRender(state) {
       if (!isDragging) phi += 0.004;
-      (state as any).phi    = phi;
-      (state as any).width  = Math.round(size * DPR);
-      (state as any).height = Math.round(size * DPR);
+      state.phi    = phi;
+      state.width  = Math.round(size * DPR);
+      state.height = Math.round(size * DPR);
     },
   });
 
