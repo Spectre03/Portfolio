@@ -74,7 +74,7 @@ export const siteConfig = {
       name: "Ajay The Jeweller Custom E-Commerce",
       description:
         "A premium customized Shopify storefront and interactive commission portal built for Australia's leading bespoke moissanite jeweler. Integrates real-time custom product customizers, bespoke VIP intake scheduling, and high-prestige Moissanite VVS1 thermal test verification grids.",
-      link: "https://ajaythejeweller.com.au/",
+      link: "https://ajaythejeweller.com/",
       image: "/jewellery store.png",
       metric: "+40% Custom Quotes",
       outcome: "Designed an interactive bespoke inquiry web portal and custom Shopify storefront, resulting in a 40% rise in custom Moissanite commission requests and streamlined VIP showroom bookings.",
